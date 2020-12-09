@@ -1,0 +1,125 @@
+body {
+  padding: 0;
+  border: 0;
+  margin: 0;
+}
+
+.login-container {
+  height: 85vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;
+}
+
+.login-container .login-form {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 70%;
+  width: 50%;
+  padding: 0 10%;
+  border: 1px solid #000000;
+  background-color: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+.login-container .login-form .input {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  height: 10%;
+  padding: 0;
+}
+
+.button-send {
+  background-color: #1d72c2;
+  color: #ffffff;
+  padding: 1rem;
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.header {
+  width: 100%;
+  height: 15vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: #1D72C2;
+}
+
+.header .logo {
+  width: 15vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+}
+
+.header .logo .logo-text {
+  font-size: 1.2rem;
+  border-top: 4px solid #f8f5c2;
+  border-bottom: 4px solid #f8f5c2;
+  color: #f8f5c2;
+}
+
+.header .links {
+  width: 85vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.header .links .link {
+  margin: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+/*# sourceMappingURL=main.css.map */
