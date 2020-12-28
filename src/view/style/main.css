@@ -4,7 +4,11 @@ body {
   margin: 0;
 }
 
-.login-container {
+.title {
+  margin: 0;
+}
+
+.form-container {
   height: 85vh;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -23,7 +27,7 @@ body {
   font-size: 1.6rem;
 }
 
-.login-container .login-form {
+.form-container .login-form {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   height: 70%;
@@ -41,19 +45,79 @@ body {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
   -ms-flex-pack: distribute;
       justify-content: space-around;
 }
 
-.login-container .login-form .input {
+.form-container .login-form .input {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 100%;
   height: 10%;
   padding: 0;
+}
+
+.form-container .login-form .button-send {
+  -ms-flex-item-align: end;
+      align-self: flex-end;
+}
+
+.form-container {
+  height: 85vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.6rem;
+}
+
+.form-container .signUp-form {
+  width: 50%;
+  height: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  border: 1px solid #000000;
+  padding: 0 5% 0 5%;
+}
+
+.form-container .signUp-form .label {
+  width: 100%;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1.5fr;
+      grid-template-columns: 1fr 1.5fr;
+  margin: 1vh;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.form-container .signUp-form .label .input {
+  width: 100%;
+  right: 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .button-send {
@@ -92,6 +156,7 @@ body {
 }
 
 .header .logo .logo-text {
+  text-decoration: none;
   font-size: 1.2rem;
   border-top: 4px solid #f8f5c2;
   border-bottom: 4px solid #f8f5c2;
