@@ -5,8 +5,15 @@
 
 // Base rules
 @import './base/fonts';
+
+// Layout
 @import './layout/reset';
-@import './layout/login';
-@import './layout/signUp';
-@import './components/buttons';
 @import './layout/header';
+
+// Pages
+@import './pages/login';
+@import './pages/signUp';
+@import './pages/contacts';
+
+// Components
+@import './components/buttons';

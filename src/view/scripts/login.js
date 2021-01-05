@@ -4,8 +4,8 @@ let password = document.querySelector(".password");
 let url = "http://localhost:3000/user";
 let userUrlLogin = url + "/login";
 
-async function chekInput(userName, password) {
-  if (userName == "" || password == "") {
+async function chekInput(userName, password) { // Divide functionality
+  if (userName == "" || password == "") {      // checkInput(userName, password)
     alert("empty input");
     return false;
   } else {
@@ -14,7 +14,7 @@ async function chekInput(userName, password) {
       password: password,
     };
 
-    fetch(userUrlLogin, {
+    fetch(userUrlLogin, {                      // Fetch(userName, password)
       method: "POST",
       mode: "cors",
       headers: {

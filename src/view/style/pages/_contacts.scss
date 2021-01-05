@@ -1,0 +1,22 @@
+.manageContacts{
+    width: 100vw;
+    height: 90vh;
+    // background-color: brown;
+    display: grid;
+    grid-template-areas: "search contactsIO"
+                         "contactsList contactsList";
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 35% minmax(65%, max-content);
+    .search {
+        grid-area: search;
+        background-color: brown;
+    }
+    .contactsIO {
+        grid-area: contactsIO;
+        background-color: cornflowerblue;
+    }
+    .contactsList {
+        grid-area: contactsList;
+        background-color: darkgreen;
+    }
+}

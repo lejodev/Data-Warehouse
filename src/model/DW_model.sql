@@ -7,7 +7,7 @@ CREATE TABLE User (
     name VARCHAR(50),
     lastName VARCHAR(100),
     email VARCHAR(100),
-    profile BOOLEAN,
+    profile ENUM("admin", "basic"),
     password VARCHAR(50),
     PRIMARY KEY (id)
 ) ENGINE = INNODB;

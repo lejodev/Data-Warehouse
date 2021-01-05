@@ -8,8 +8,68 @@ body {
   margin: 0;
 }
 
+.header {
+  width: 100%;
+  height: 10vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background-color: #1D72C2;
+}
+
+.header .logo {
+  width: 15vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  cursor: pointer;
+}
+
+.header .logo .logo-text {
+  text-decoration: none;
+  font-size: 1.2rem;
+  border-top: 4px solid #f8f5c2;
+  border-bottom: 4px solid #f8f5c2;
+  color: #f8f5c2;
+}
+
+.header .links {
+  width: 85vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+.header .links .link {
+  margin: 1rem;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2rem;
+  color: #ffffff;
+  text-decoration: none;
+}
+
 .form-container {
-  height: 85vh;
+  height: 90vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -63,7 +123,7 @@ body {
 }
 
 .form-container {
-  height: 85vh;
+  height: 90vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -120,71 +180,46 @@ body {
           box-sizing: border-box;
 }
 
+.manageContacts {
+  width: 100vw;
+  height: 90vh;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "search contactsIO" "contactsList contactsList";
+  -ms-grid-columns: (1fr)[2];
+      grid-template-columns: repeat(2, 1fr);
+  -ms-grid-rows: 35% minmax(65%, max-content);
+      grid-template-rows: 35% minmax(65%, -webkit-max-content);
+      grid-template-rows: 35% minmax(65%, max-content);
+}
+
+.manageContacts .search {
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: search;
+  background-color: brown;
+}
+
+.manageContacts .contactsIO {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: contactsIO;
+  background-color: cornflowerblue;
+}
+
+.manageContacts .contactsList {
+  -ms-grid-row: 2;
+  -ms-grid-column: 1;
+  -ms-grid-column-span: 2;
+  grid-area: contactsList;
+  background-color: darkgreen;
+}
+
 .button-send {
   background-color: #1d72c2;
   color: #ffffff;
   padding: 1rem;
   -ms-flex-item-align: end;
       align-self: flex-end;
-}
-
-.header {
-  width: 100%;
-  height: 15vh;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  background-color: #1D72C2;
-}
-
-.header .logo {
-  width: 15vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  cursor: pointer;
-}
-
-.header .logo .logo-text {
-  text-decoration: none;
-  font-size: 1.2rem;
-  border-top: 4px solid #f8f5c2;
-  border-bottom: 4px solid #f8f5c2;
-  color: #f8f5c2;
-}
-
-.header .links {
-  width: 85vw;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
-}
-
-.header .links .link {
-  margin: 1rem;
-  font-family: "Open Sans", sans-serif;
-  font-size: 1.2rem;
-  color: #ffffff;
-  text-decoration: none;
 }
 /*# sourceMappingURL=main.css.map */
