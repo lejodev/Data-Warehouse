@@ -1,22 +1,117 @@
-.manageContacts{
+.manageContacts {
     width: 100vw;
     height: 90vh;
     // background-color: brown;
     display: grid;
-    grid-template-areas: "search contactsIO"
-                         "contactsList contactsList";
+    grid-template-areas:
+        "search contactsIO"
+        "contactsList contactsList";
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 35% minmax(65%, max-content);
     .search {
         grid-area: search;
-        background-color: brown;
+        display: flex;
+        flex-direction: column;
+        padding: 4%;
+        box-sizing: border-box;
+        // .contactsTitle {
+        //     // margin: 0;
+        //     // background-color: lightcoral;
+        // }
+        .searchForm {
+            height: 30%;
+            width: 90%;
+            display: grid;
+            grid-template-areas: "contact_input search_button";
+            grid-template-columns: 90fr 10fr;
+            grid-template-rows: 1fr;
+            border-radius: $rounded-border;
+            .contact_input {
+                position: relative;
+                height: 100%;
+                width: 100%;
+                grid-area: contact_input;
+                // background-color: lightgreen;
+                input[type="text"] {
+                    border-radius: $rounded-border;
+                    height: 100%;
+                    width: 100%;
+                    box-sizing: border-box;
+                }
+                .arrow_down_display_filter {
+                    cursor: pointer;
+                    position: absolute;
+                    top: 30%;
+                    right: 3%;
+                }
+            }
+            .search_button {
+                cursor: pointer;
+                margin: 0 10%;
+                border-radius: $rounded-border;
+                height: 100%;
+                width: 70%;
+                grid-area: search_button;
+                background-color: #ffffff;
+                // margin: 0;
+                padding: 0;
+                .fa-search {
+                    color: $component-blue-color;
+                }
+            }
+        }
     }
     .contactsIO {
         grid-area: contactsIO;
-        background-color: cornflowerblue;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-direction: row;
+        padding: 4%;
+        box-sizing: border-box;
+        .io_container {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-areas: "btn_import btn_export btn_add";
+            grid-template-columns: 1fr repeat(2, 4fr);
+            grid-template-rows: 1fr;
+            width: 65%;
+            height: 35%;
+            .btn_import_contact {
+                margin: 5px;
+                border-radius: $rounded-border;
+                grid-area: btn_import;
+                border: 1px solid $component-blue-color;
+                cursor: pointer;
+                .fa-upload {
+                    color: $component-blue-color;
+                }
+            }
+            .btn_export_contact {
+                margin: 5px;
+                border-radius: $rounded-border;
+                grid-area: btn_export;
+                color: $component-blue-color;
+                border: 1px solid $component-blue-color;
+                cursor: pointer;
+                .arrow_down_import_contact {
+                    margin-left: 4%;
+                    color: $component-blue-color;
+                }
+            }
+            .btn_add_contact {
+                margin: 5px;
+                border-radius: $rounded-border;
+                grid-area: btn_add;
+                background-color: $component-blue-color;
+                border: 1px solid $component-blue-color;
+                color: #ffffff;
+                cursor: pointer;
+            }
+        }
     }
     .contactsList {
         grid-area: contactsList;
-        background-color: darkgreen;
+        // background-color: darkgreen;
     }
 }

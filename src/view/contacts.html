@@ -1,29 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Contacts</title>
-    <link rel="stylesheet" href="style/main.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="style/main.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <header class="header">
-        <div class="logo">
-            <a class="logo-text link" href="index.html">DATA WAREHOUSE</a>
-        </div>
-        <div class="links">
-            <a class="link" href="contacts.html">Contacts</a>
-            <a class="link" href="#">Companies</a>
-            <a class="link" href="users.html">Users</a>
-            <a class="link" href="#">Region/City</a>
-        </div>
+      <div class="logo">
+        <a class="logo-text link" href="index.html">DATA WAREHOUSE</a>
+      </div>
+      <div class="links">
+        <a class="link" href="contacts.html">Contacts</a>
+        <a class="link" href="#">Companies</a>
+        <a class="link" href="users.html">Users</a>
+        <a class="link" href="#">Region/City</a>
+      </div>
     </header>
     <div class="manageContacts">
-        <section class="search"></section>
-        <section class="contactsIO"></section>
-        <section class="contactsList"></section>
+      <section class="search">
+        <h2 class="contactsTitle">Contacts</h2>
+        <form action="" class="searchForm">
+          <label class="contact_input">
+            <input type="text" name="input" id="input" />
+            <i class="arrow_down_display_filter fas fa-caret-down"></i>
+          </label>
+          <button class="search_button">
+            <i class="fas fa-search fa-lg"></i>
+          </button>
+          <!-- <input type="button" class="serachButton"/> -->
+        </form>
+      </section>
+      <section class="contactsIO">
+        <div class="io_container">
+          <div class="btn_import_contact center_component_row_direction">
+            <i class="fas fa-upload"></i>
+          </div>
+          <div class="btn_export_contact center_component_row_direction">
+              <span> Export contacts </span>
+            <i class="arrow_down_import_contact fas fa-caret-down"></i>
+          </div>
+          <div class="btn_add_contact center_component_row_direction"> Add contacts </div>
+        </div>
+      </section>
+      <section class="contactsList"></section>
     </div>
-</body>
+    <script
+      src="https://kit.fontawesome.com/a357037438.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

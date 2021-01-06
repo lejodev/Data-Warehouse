@@ -1,3 +1,19 @@
+.center_component_row_direction {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 body {
   padding: 0;
   border: 0;
@@ -197,14 +213,147 @@ body {
   -ms-grid-row: 1;
   -ms-grid-column: 1;
   grid-area: search;
-  background-color: brown;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  padding: 4%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.manageContacts .search .searchForm {
+  height: 30%;
+  width: 90%;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "contact_input search_button";
+  -ms-grid-columns: 90fr 10fr;
+      grid-template-columns: 90fr 10fr;
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  border-radius: 5px;
+}
+
+.manageContacts .search .searchForm .contact_input {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: contact_input;
+}
+
+.manageContacts .search .searchForm .contact_input input[type="text"] {
+  border-radius: 5px;
+  height: 100%;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.manageContacts .search .searchForm .contact_input .arrow_down_display_filter {
+  cursor: pointer;
+  position: absolute;
+  top: 30%;
+  right: 3%;
+}
+
+.manageContacts .search .searchForm .search_button {
+  cursor: pointer;
+  margin: 0 10%;
+  border-radius: 5px;
+  height: 100%;
+  width: 70%;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: search_button;
+  background-color: #ffffff;
+  padding: 0;
+}
+
+.manageContacts .search .searchForm .search_button .fa-search {
+  color: #1d72c2;
 }
 
 .manageContacts .contactsIO {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: contactsIO;
-  background-color: cornflowerblue;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  padding: 4%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.manageContacts .contactsIO .io_container {
+  margin-top: 2rem;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "btn_import btn_export btn_add";
+  -ms-grid-columns: 1fr (4fr)[2];
+      grid-template-columns: 1fr repeat(2, 4fr);
+  -ms-grid-rows: 1fr;
+      grid-template-rows: 1fr;
+  width: 65%;
+  height: 35%;
+}
+
+.manageContacts .contactsIO .io_container .btn_import_contact {
+  margin: 5px;
+  border-radius: 5px;
+  -ms-grid-row: 1;
+  -ms-grid-column: 1;
+  grid-area: btn_import;
+  border: 1px solid #1d72c2;
+  cursor: pointer;
+}
+
+.manageContacts .contactsIO .io_container .btn_import_contact .fa-upload {
+  color: #1d72c2;
+}
+
+.manageContacts .contactsIO .io_container .btn_export_contact {
+  margin: 5px;
+  border-radius: 5px;
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: btn_export;
+  color: #1d72c2;
+  border: 1px solid #1d72c2;
+  cursor: pointer;
+}
+
+.manageContacts .contactsIO .io_container .btn_export_contact .arrow_down_import_contact {
+  margin-left: 4%;
+  color: #1d72c2;
+}
+
+.manageContacts .contactsIO .io_container .btn_add_contact {
+  margin: 5px;
+  border-radius: 5px;
+  -ms-grid-row: 1;
+  -ms-grid-column: 3;
+  grid-area: btn_add;
+  background-color: #1d72c2;
+  border: 1px solid #1d72c2;
+  color: #ffffff;
+  cursor: pointer;
 }
 
 .manageContacts .contactsList {
@@ -212,7 +361,6 @@ body {
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-area: contactsList;
-  background-color: darkgreen;
 }
 
 .button-send {
