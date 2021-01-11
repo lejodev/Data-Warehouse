@@ -1,117 +1,268 @@
 .manageContacts {
-    width: 100vw;
-    height: 90vh;
-    // background-color: brown;
-    display: grid;
-    grid-template-areas:
-        "search contactsIO"
-        "contactsList contactsList";
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 35% minmax(65%, max-content);
-    .search {
-        grid-area: search;
-        display: flex;
-        flex-direction: column;
-        padding: 4%;
-        box-sizing: border-box;
-        // .contactsTitle {
-        //     // margin: 0;
-        //     // background-color: lightcoral;
-        // }
-        .searchForm {
-            height: 30%;
-            width: 90%;
-            display: grid;
-            grid-template-areas: "contact_input search_button";
-            grid-template-columns: 90fr 10fr;
-            grid-template-rows: 1fr;
-            border-radius: $rounded-border;
-            .contact_input {
-                position: relative;
-                height: 100%;
-                width: 100%;
-                grid-area: contact_input;
-                // background-color: lightgreen;
-                input[type="text"] {
-                    border-radius: $rounded-border;
-                    height: 100%;
-                    width: 100%;
-                    box-sizing: border-box;
-                }
-                .arrow_down_display_filter {
-                    cursor: pointer;
-                    position: absolute;
-                    top: 30%;
-                    right: 3%;
-                }
-            }
-            .search_button {
-                cursor: pointer;
-                margin: 0 10%;
-                border-radius: $rounded-border;
-                height: 100%;
-                width: 70%;
-                grid-area: search_button;
-                background-color: #ffffff;
-                // margin: 0;
-                padding: 0;
-                .fa-search {
-                    color: $component-blue-color;
-                }
-            }
+  width: 100vw;
+  height: 90vh;
+  display: grid;
+  grid-template-areas:
+    "search contactsIO"
+    "contactsList contactsList";
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 35% minmax(50%, max-content);
+  .search {
+    grid-area: search;
+    display: flex;
+    flex-direction: column;
+    padding: 4%;
+    box-sizing: border-box;
+    .searchForm {
+      height: 30%;
+      width: 90%;
+      display: grid;
+      grid-template-areas: "contact_input search_button";
+      grid-template-columns: 90fr 10fr;
+      grid-template-rows: 1fr;
+      border-radius: $rounded-border;
+      position: relative;
+      .contact_input {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        grid-area: contact_input;
+        input[type="text"] {
+          border-radius: $rounded-border;
+          height: 100%;
+          width: 100%;
+          box-sizing: border-box;
         }
-    }
-    .contactsIO {
-        grid-area: contactsIO;
+        .arrow_down_display_filter {
+          cursor: pointer;
+          position: absolute;
+          top: 30%;
+          right: 3%;
+        }
+      }
+      .search_result {
+        width: fit-content;
+        height: fit-content;
+        margin: 3px;
+        padding: .5%;
+        background-color: $result-background;
+        position: absolute;
+        top: 100%;
         display: flex;
-        justify-content: flex-end;
         align-items: center;
-        flex-direction: row;
-        padding: 4%;
-        box-sizing: border-box;
-        .io_container {
-            margin-top: 2rem;
-            display: grid;
-            grid-template-areas: "btn_import btn_export btn_add";
-            grid-template-columns: 1fr repeat(2, 4fr);
-            grid-template-rows: 1fr;
-            width: 65%;
-            height: 35%;
-            .btn_import_contact {
-                margin: 5px;
-                border-radius: $rounded-border;
-                grid-area: btn_import;
-                border: 1px solid $component-blue-color;
-                cursor: pointer;
-                .fa-upload {
-                    color: $component-blue-color;
-                }
-            }
-            .btn_export_contact {
-                margin: 5px;
-                border-radius: $rounded-border;
-                grid-area: btn_export;
-                color: $component-blue-color;
-                border: 1px solid $component-blue-color;
-                cursor: pointer;
-                .arrow_down_import_contact {
-                    margin-left: 4%;
-                    color: $component-blue-color;
-                }
-            }
-            .btn_add_contact {
-                margin: 5px;
-                border-radius: $rounded-border;
-                grid-area: btn_add;
-                background-color: $component-blue-color;
-                border: 1px solid $component-blue-color;
-                color: #ffffff;
-                cursor: pointer;
-            }
+        i{
+          margin-left: 3px;
         }
+      }
+      #close {
+        visibility: hidden;
+        position: absolute;
+        &:checked ~ .search_result {
+          display: none;
+        }
+      }
+      .search_button {
+        cursor: pointer;
+        margin: 0 10%;
+        border-radius: $rounded-border;
+        height: 100%;
+        width: 70%;
+        grid-area: search_button;
+        background-color: #ffffff;
+        padding: 0;
+        .fa-search {
+          color: $component-blue-color;
+        }
+      }
+      #deploy-filter {
+        position: absolute;
+        visibility: hidden;
+        &:checked ~.filter{
+          visibility: visible;
+        }
+      }
+      .filter {
+        visibility: hidden;
+        width: 90%;
+        height: 60vh;
+        background-color: #ffffff;
+        position: absolute;
+        top: 110%;
+        padding: 0 4% 0 4%;
+        display: grid;
+        grid-template-areas: "labels inputs";
+        grid-template-columns: 1fr 2fr;
+        grid-template-rows: repeat(6, 1fr);
+        align-items: center;
+        box-shadow: 0 0 3px;
+        label,
+        select,
+        input[type="text"] {
+          height: 60%;
+        }
+        input[type="text"] {
+          border-left-style: none;
+          border-top-style: none;
+          border-right-style: none;
+        }
+        select {
+          width: 70%;
+        }
+      }
     }
-    .contactsList {
-        grid-area: contactsList;
-        // background-color: darkgreen;
+  }
+  .contactsIO {
+    grid-area: contactsIO;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: row;
+    padding: 4%;
+    box-sizing: border-box;
+    .io_container {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-areas: "btn_import btn_export btn_add";
+      grid-template-columns: 1fr repeat(2, 4fr);
+      grid-template-rows: 1fr;
+      width: 65%;
+      height: 35%;
+      .btn_import_contact {
+        margin: 5px;
+        border-radius: $rounded-border;
+        grid-area: btn_import;
+        border: 1px solid $component-blue-color;
+        cursor: pointer;
+        .fa-upload {
+          color: $component-blue-color;
+        }
+      }
+      .btn_export_contact {
+        margin: 5px;
+        border-radius: $rounded-border;
+        grid-area: btn_export;
+        color: $component-blue-color;
+        border: 1px solid $component-blue-color;
+        cursor: pointer;
+        .arrow_down_import_contact {
+          margin-left: 4%;
+          color: $component-blue-color;
+        }
+      }
+      .btn_add_contact {
+        margin: 5px;
+        border-radius: $rounded-border;
+        grid-area: btn_add;
+        background-color: $component-blue-color;
+        border: 1px solid $component-blue-color;
+        color: #ffffff;
+        cursor: pointer;
+      }
     }
+  }
+  .contactsList {
+    grid-area: contactsList;
+    padding: 0 2% 0 2%;
+    height: 100%;
+    .contacts_list_table {
+      width: 100%;
+      height: 100%;
+      // border: 1px solid #b1a6a6;
+      .contacts_list_table_header {
+        height: 10vh;
+        border-top: $table_border_shorthand;
+        border-left: $table_border_shorthand;
+        border-right: $table_border_shorthand;
+        // background-color: aqua;
+        display: grid;
+        grid-template-columns: 0.4fr 1.5fr 1.2fr repeat(4, 1.2fr) 0.7fr;
+      }
+      .rows_container {
+        width: 100%;
+        min-height: 100%;
+        max-height: fit-content;
+        border: 1px solid #b1a6a6;
+        // background-color: brown;
+        .row {
+          width: 100%;
+          height: 8vh;
+          // background-color: cornflowerblue;
+          display: grid;
+          grid-template-columns: 0.4fr 1.5fr 1.2fr repeat(4, 1.2fr) 0.7fr;
+          .contact_row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .contact_photo_name_email_container {
+              // width: 100%;
+              // height: 100%;
+              background-color: aqua;
+              display: grid;
+              grid-template-areas:
+                "photo name"
+                "photo email";
+              grid-template-rows: 2fr;
+              grid-template-columns: 2fr 8fr;
+              .photo {
+                width: 2rem;
+                height: 2rem;
+                background-color: brown;
+                border-radius: 50%;
+                grid-area: photo;
+              }
+              .name {
+                grid-area: name;
+              }
+              .email {
+                grid-area: email;
+              }
+              // .contact_photo.{}
+            }
+          }
+          .country_region_row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          .company_row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          .position_row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          .preferred_channel_row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+          .interest_row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            .bar {
+              width: 100%;
+              height: 20%;
+              background-color: #e8e8e8;
+              border-radius: 4px;
+              .percentage {
+                height: 100%;
+                width: 75%;
+                border-radius: 4px;
+                background-color: $_75;
+              }
+            }
+          }
+          .actions_row {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
 }

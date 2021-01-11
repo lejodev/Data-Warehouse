@@ -14,10 +14,55 @@
           justify-content: center;
 }
 
+.col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.col > * {
+  margin: 3%;
+}
+
+.row {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 0.4fr 1.5fr 1.2fr (1.2fr)[4] 0.7fr;
+      grid-template-columns: 0.4fr 1.5fr 1.2fr repeat(4, 1.2fr) 0.7fr;
+}
+
+.flex_col {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 body {
   padding: 0;
   border: 0;
   margin: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .title {
@@ -204,9 +249,9 @@ body {
       grid-template-areas: "search contactsIO" "contactsList contactsList";
   -ms-grid-columns: (1fr)[2];
       grid-template-columns: repeat(2, 1fr);
-  -ms-grid-rows: 35% minmax(65%, max-content);
-      grid-template-rows: 35% minmax(65%, -webkit-max-content);
-      grid-template-rows: 35% minmax(65%, max-content);
+  -ms-grid-rows: 35% minmax(50%, max-content);
+      grid-template-rows: 35% minmax(50%, -webkit-max-content);
+      grid-template-rows: 35% minmax(50%, max-content);
 }
 
 .manageContacts .search {
@@ -236,6 +281,7 @@ body {
   -ms-grid-rows: 1fr;
       grid-template-rows: 1fr;
   border-radius: 5px;
+  position: relative;
 }
 
 .manageContacts .search .searchForm .contact_input {
@@ -262,6 +308,39 @@ body {
   right: 3%;
 }
 
+.manageContacts .search .searchForm .search_result {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: 3px;
+  padding: .5%;
+  background-color: #e8e8e8;
+  position: absolute;
+  top: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.manageContacts .search .searchForm .search_result i {
+  margin-left: 3px;
+}
+
+.manageContacts .search .searchForm #close {
+  visibility: hidden;
+  position: absolute;
+}
+
+.manageContacts .search .searchForm #close:checked ~ .search_result {
+  display: none;
+}
+
 .manageContacts .search .searchForm .search_button {
   cursor: pointer;
   margin: 0 10%;
@@ -277,6 +356,53 @@ body {
 
 .manageContacts .search .searchForm .search_button .fa-search {
   color: #1d72c2;
+}
+
+.manageContacts .search .searchForm #deploy-filter {
+  position: absolute;
+  visibility: hidden;
+}
+
+.manageContacts .search .searchForm #deploy-filter:checked ~ .filter {
+  visibility: visible;
+}
+
+.manageContacts .search .searchForm .filter {
+  visibility: hidden;
+  width: 90%;
+  height: 60vh;
+  background-color: #ffffff;
+  position: absolute;
+  top: 110%;
+  padding: 0 4% 0 4%;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "labels inputs";
+  -ms-grid-columns: 1fr 2fr;
+      grid-template-columns: 1fr 2fr;
+  -ms-grid-rows: (1fr)[6];
+      grid-template-rows: repeat(6, 1fr);
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-shadow: 0 0 3px;
+          box-shadow: 0 0 3px;
+}
+
+.manageContacts .search .searchForm .filter label,
+.manageContacts .search .searchForm .filter select,
+.manageContacts .search .searchForm .filter input[type="text"] {
+  height: 60%;
+}
+
+.manageContacts .search .searchForm .filter input[type="text"] {
+  border-left-style: none;
+  border-top-style: none;
+  border-right-style: none;
+}
+
+.manageContacts .search .searchForm .filter select {
+  width: 70%;
 }
 
 .manageContacts .contactsIO {
@@ -361,6 +487,181 @@ body {
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
   grid-area: contactsList;
+  padding: 0 2% 0 2%;
+  height: 100%;
+}
+
+.manageContacts .contactsList .contacts_list_table {
+  width: 100%;
+  height: 100%;
+}
+
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_header {
+  height: 10vh;
+  border-top: 1px solid #b1a6a6;
+  border-left: 1px solid #b1a6a6;
+  border-right: 1px solid #b1a6a6;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 0.4fr 1.5fr 1.2fr (1.2fr)[4] 0.7fr;
+      grid-template-columns: 0.4fr 1.5fr 1.2fr repeat(4, 1.2fr) 0.7fr;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container {
+  width: 100%;
+  min-height: 100%;
+  max-height: -webkit-fit-content;
+  max-height: -moz-fit-content;
+  max-height: fit-content;
+  border: 1px solid #b1a6a6;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row {
+  width: 100%;
+  height: 8vh;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 0.4fr 1.5fr 1.2fr (1.2fr)[4] 0.7fr;
+      grid-template-columns: 0.4fr 1.5fr 1.2fr repeat(4, 1.2fr) 0.7fr;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container {
+  background-color: aqua;
+  display: -ms-grid;
+  display: grid;
+      grid-template-areas: "photo name" "photo email";
+  -ms-grid-rows: 2fr;
+      grid-template-rows: 2fr;
+  -ms-grid-columns: 2fr 8fr;
+      grid-template-columns: 2fr 8fr;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container .photo {
+  width: 2rem;
+  height: 2rem;
+  background-color: brown;
+  border-radius: 50%;
+  -ms-grid-row: 1;
+  -ms-grid-row-span: 2;
+  -ms-grid-column: 1;
+  grid-area: photo;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container .name {
+  -ms-grid-row: 1;
+  -ms-grid-column: 2;
+  grid-area: name;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container .email {
+  -ms-grid-row: 2;
+  -ms-grid-column: 2;
+  grid-area: email;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .country_region_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .company_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .position_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .preferred_channel_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .interest_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .interest_row .bar {
+  width: 100%;
+  height: 20%;
+  background-color: #e8e8e8;
+  border-radius: 4px;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .interest_row .bar .percentage {
+  height: 100%;
+  width: 75%;
+  border-radius: 4px;
+  background-color: #ff6f00;
+}
+
+.manageContacts .contactsList .contacts_list_table .rows_container .row .actions_row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 .button-send {
@@ -369,5 +670,25 @@ body {
   padding: 1rem;
   -ms-flex-item-align: end;
       align-self: flex-end;
+}
+
+table {
+  width: 100%;
+  margin-bottom: 100px;
+  border-collapse: separate;
+  /* Don't collapse */
+  border-spacing: 0;
+}
+
+table thead tr {
+  border: solid 1px;
+}
+
+table .table_head {
+  border-bottom: solid 1px;
+}
+
+thead {
+  border-bottom: solid 1px;
 }
 /*# sourceMappingURL=main.css.map */

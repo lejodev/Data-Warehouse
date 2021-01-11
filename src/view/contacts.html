@@ -24,33 +24,165 @@
       </div>
     </header>
     <div class="manageContacts">
-      <section class="search">
+      <div class="search">
         <h2 class="contactsTitle">Contacts</h2>
         <form action="" class="searchForm">
           <label class="contact_input">
             <input type="text" name="input" id="input" />
-            <i class="arrow_down_display_filter fas fa-caret-down"></i>
+            <label for="deploy-filter">
+              <i class="arrow_down_display_filter fas fa-caret-down"></i>
+            </label>
           </label>
+          <input type="checkbox" name="close" id="close">
+          <div class="search_result">
+            Argentina
+            <label for="close">
+              <i class="fas fa-times"></i>
+            </label>
+          </div>
+          <input type="checkbox" id="deploy-filter" name="deploy-filter">
           <button class="search_button">
             <i class="fas fa-search fa-lg"></i>
           </button>
-          <!-- <input type="button" class="serachButton"/> -->
+          <div class="filter">
+            <label for="contanctName">Contact name</label>
+            <input type="text" id="contanctName" placeholder="Enter the contact name">
+            <label for="position" > Position </label>
+            <input type="text" id="position" placeholder="Enter the contact position">
+            <label for="countryRegion">Country/Region</label>
+            <select id="countryRegion">  <!--Fill Dynamicly-->
+              <option value="All">All</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Honduras">Honduras</option>
+            </select>
+            <label for="company"> Company </label>
+            <select id="company">
+              <option value="All">All</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Honduras">Honduras</option>
+            </select>
+            <label for="channel"> Preferred channel </label>  
+            <select id="channel">
+              <option value="All">All</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Honduras">Honduras</option>
+            </select>
+            <label for="interest"> Interest </label>
+            <select id="interest">
+              <option value="All">All</option>
+              <option value="Argentina">Argentina</option>
+              <option value="Colombia">Colombia</option>
+              <option value="Paraguay">Paraguay</option>
+              <option value="Honduras">Honduras</option>
+            </select>
+          </div>
         </form>
-      </section>
-      <section class="contactsIO">
+      </div>
+      <div class="contactsIO">
         <div class="io_container">
           <div class="btn_import_contact center_component_row_direction">
             <i class="fas fa-upload"></i>
           </div>
           <div class="btn_export_contact center_component_row_direction">
-              <span> Export contacts </span>
+            <span> Export contacts </span>
             <i class="arrow_down_import_contact fas fa-caret-down"></i>
           </div>
-          <div class="btn_add_contact center_component_row_direction"> Add contacts </div>
+          <div class="btn_add_contact center_component_row_direction">
+            Add contacts
+          </div>
         </div>
-      </section>
-      <section class="contactsList"></section>
+      </div>
+      <div class="contactsList">
+        <div class="contacts_list_table">
+          <div class="contacts_list_table_header">
+            <div class="checkbox_row_title col">
+              <input type="checkbox" name="" id="select_all" class="select_all"/>
+            </div>
+            <div class="contact_row_title col">
+              <span class="title">Contact</span>
+              <i class="fas fa-arrows-alt-v"></i>
+            </div>
+            <div class="country_region_row_title col">
+              <span class="title">Country/Region</span>
+              <i class="fas fa-arrows-alt-v"></i>
+            </div>
+            <div class="company_row_title col">
+              <span class="title">Company</span>
+              <i class="fas fa-arrows-alt-v"></i>
+            </div>
+            <div class="position_row_title col">
+              <span class="title">Position</span>
+              <i class="fas fa-arrows-alt-v"></i>
+            </div>
+              <div class="preferred_channel_row_title col">
+              <span class="title">Preferred channel</span>
+              <i class="fas fa-arrows-alt-v"></i>
+            </div>
+            <div class="interest_row_title col">
+              <span class="title">Interest</span>
+            </div>
+            <div class="actions_row_title col">
+              <span class="title">Actions</span>
+            </div>
+          </div>
+
+         
+
+          <div class="rows_container ">
+            <div class="row">
+              <div class="checkbox_row col">
+                <input
+                  type="checkbox"
+                  name=""
+                  id="select_all"
+                  class="select_all"
+                />
+              </div>
+              <div class="contact_row">
+                <div class="contact_photo_name_email_container">
+                  <div class="photo"></div>
+                  <span class="name">Contact</span>
+                  <span class="email">fakeMail@gmail.com</span>
+                </div>
+              </div>
+              <div class="country_region_row">
+                <span class="country">Country</span>
+                <span class="region">Region</span>
+              </div>
+              <div class="company_row">
+                <span class="company">Company</span>
+              </div>
+              <div class="position_row">
+                <span class="position">Position</span>
+              </div>
+              <div class="preferred_channel_row">
+                <div class="preferred_channels_container">
+                  <div class="channel">WhatsApp</div>
+                  <div class="channel">Facebook</div>
+                </div>
+              </div>
+              <div class="interest_row">
+                <div class="bar">
+                  <div class="percentage"></div>
+                </div>
+              </div>
+              <div class="actions_row">
+                <i class="fas fa-ellipsis-h"></i>
+              </div>
+            </div>
+          </div>
+
+          </div>
+        </div>
+      </div>
     </div>
+    <script src="scripts/contacts.js"></script>
     <script
       src="https://kit.fontawesome.com/a357037438.js"
       crossorigin="anonymous"
