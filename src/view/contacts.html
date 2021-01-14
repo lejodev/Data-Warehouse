@@ -100,6 +100,13 @@
       </div>
       <div class="contactsList">
         <div class="contacts_list_table">
+          <div class="info_action_row">
+            <div class="selected_amount"></div>
+            <div class="delete_contacts">
+              <i class="fas fa-trash"></i>
+              <span>Delete contacts</span>
+            </div>
+          </div>
           <div class="contacts_list_table_header">
             <div class="checkbox_row_title col">
               <input type="checkbox" name="" id="select_all" class="select_all"/>
@@ -131,61 +138,71 @@
               <span class="title">Actions</span>
             </div>
           </div>
-
-         
-
-          <div class="rows_container ">
-            <div class="row">
-              <div class="checkbox_row col">
-                <input
-                  type="checkbox"
-                  name=""
-                  id="select_all"
-                  class="select_all"
-                />
-              </div>
-              <div class="contact_row">
-                <div class="contact_photo_name_email_container">
-                  <div class="photo"></div>
-                  <span class="name">Contact</span>
-                  <span class="email">fakeMail@gmail.com</span>
-                </div>
-              </div>
-              <div class="country_region_row">
-                <span class="country">Country</span>
-                <span class="region">Region</span>
-              </div>
-              <div class="company_row">
-                <span class="company">Company</span>
-              </div>
-              <div class="position_row">
-                <span class="position">Position</span>
-              </div>
-              <div class="preferred_channel_row">
-                <div class="preferred_channels_container">
-                  <div class="channel">WhatsApp</div>
-                  <div class="channel">Facebook</div>
-                </div>
-              </div>
-              <div class="interest_row">
-                <div class="bar">
-                  <div class="percentage"></div>
-                </div>
-              </div>
-              <div class="actions_row">
-                <i class="fas fa-ellipsis-h"></i>
-              </div>
-            </div>
+          <div class="contacts_list_table_body">
+            <!-- contacts content -->
           </div>
 
           </div>
         </div>
       </div>
     </div>
-    <script src="scripts/contacts.js"></script>
+
+    
+<!-- TEMPLATES -->
+<template id="contact_row">
+  <div class="row">  
+    <div class="checkbox_row col">
+      <input
+        type="checkbox"
+        name=""
+        id="select"
+        class="select"
+      />
+    </div>
+    <div class="contact_row">
+      <div class="contact_photo_name_email_container">
+        <div class="photo"></div>
+        <span class="name">...</span>
+        <span class="email">...</span>
+      </div>
+    </div>
+    <div class="country_region_row">
+      <span class="country">...</span>
+      <span class="region">...</span>
+    </div>
+    <div class="company_row">
+      <span class="company">...</span>
+    </div>
+
+    <div class="position_row">
+      <span class="position">Position</span>
+    </div>
+
+    <div class="preferred_channel_row">
+      <div class="preferred_channels_container">
+        <div class="channel">WhatsApp</div>
+        <div class="channel">Facebook</div>
+      </div>
+    </div>
+
+    <div class="interest_row">
+      <div class="bar">
+        <div class="percentage"></div>
+      </div>
+    </div>
+
+    <div class="actions_row">
+      <i class="fas fa-ellipsis-h"></i>
+    </div>
+    
+  </div>
+</template>
+
+    <script src="scripts/contacts.js" type="module"></script>
     <script
       src="https://kit.fontawesome.com/a357037438.js"
       crossorigin="anonymous"
     ></script>
   </body>
 </html>
+

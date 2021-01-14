@@ -387,6 +387,7 @@ body {
           align-items: center;
   -webkit-box-shadow: 0 0 3px;
           box-shadow: 0 0 3px;
+  z-index: 10;
 }
 
 .manageContacts .search .searchForm .filter label,
@@ -483,6 +484,7 @@ body {
 }
 
 .manageContacts .contactsList {
+  margin-top: 1.5%;
   -ms-grid-row: 2;
   -ms-grid-column: 1;
   -ms-grid-column-span: 2;
@@ -494,6 +496,67 @@ body {
 .manageContacts .contactsList .contacts_list_table {
   width: 100%;
   height: 100%;
+  position: relative;
+}
+
+.manageContacts .contactsList .contacts_list_table .info_action_row {
+  margin-bottom: .2%;
+  width: 100%;
+  height: 4vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: absolute;
+  bottom: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  visibility: hidden;
+}
+
+.manageContacts .contactsList .contacts_list_table .info_action_row .selected_amount {
+  background-color: #8ec7fc;
+  padding: 0.2% 1.5% 0.2% 1.5%;
+  color: #1d72c2;
+}
+
+.manageContacts .contactsList .contacts_list_table .info_action_row .delete_contacts {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.manageContacts .contactsList .contacts_list_table .info_action_row .delete_contacts .fa-trash {
+  margin: 0 3% 0 3%;
+  color: #1d72c2;
+}
+
+.manageContacts .contactsList .contacts_list_table .info_action_row .delete_contacts span {
+  font-size: 1.1rem;
+  width: 8rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: #1d72c2;
 }
 
 .manageContacts .contactsList .contacts_list_table .contacts_list_table_header {
@@ -507,7 +570,7 @@ body {
       grid-template-columns: 0.4fr 1.5fr 1.2fr repeat(4, 1.2fr) 0.7fr;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body {
   width: 100%;
   min-height: 100%;
   max-height: -webkit-fit-content;
@@ -516,16 +579,21 @@ body {
   border: 1px solid #b1a6a6;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row {
   width: 100%;
   height: 8vh;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 0.4fr 1.5fr 1.2fr (1.2fr)[4] 0.7fr;
       grid-template-columns: 0.4fr 1.5fr 1.2fr repeat(4, 1.2fr) 0.7fr;
+  background-color: #fff;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row:hover {
+  background-color: #e8e8e8;
+}
+
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .contact_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -538,7 +606,7 @@ body {
           justify-content: center;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .contact_row .contact_photo_name_email_container {
   background-color: aqua;
   display: -ms-grid;
   display: grid;
@@ -549,7 +617,7 @@ body {
       grid-template-columns: 2fr 8fr;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container .photo {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .contact_row .contact_photo_name_email_container .photo {
   width: 2rem;
   height: 2rem;
   background-color: brown;
@@ -560,19 +628,19 @@ body {
   grid-area: photo;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container .name {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .contact_row .contact_photo_name_email_container .name {
   -ms-grid-row: 1;
   -ms-grid-column: 2;
   grid-area: name;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .contact_row .contact_photo_name_email_container .email {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .contact_row .contact_photo_name_email_container .email {
   -ms-grid-row: 2;
   -ms-grid-column: 2;
   grid-area: email;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .country_region_row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .country_region_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -585,7 +653,7 @@ body {
           justify-content: center;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .company_row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .company_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -598,7 +666,7 @@ body {
           justify-content: center;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .position_row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .position_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -611,7 +679,7 @@ body {
           justify-content: center;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .preferred_channel_row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .preferred_channel_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -624,7 +692,7 @@ body {
           justify-content: center;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .interest_row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .interest_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -637,21 +705,21 @@ body {
           justify-content: center;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .interest_row .bar {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .interest_row .bar {
   width: 100%;
   height: 20%;
-  background-color: #e8e8e8;
+  background-color: #b1a6a6;
   border-radius: 4px;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .interest_row .bar .percentage {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .interest_row .bar .percentage {
   height: 100%;
   width: 75%;
   border-radius: 4px;
   background-color: #ff6f00;
 }
 
-.manageContacts .contactsList .contacts_list_table .rows_container .row .actions_row {
+.manageContacts .contactsList .contacts_list_table .contacts_list_table_body .row .actions_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
