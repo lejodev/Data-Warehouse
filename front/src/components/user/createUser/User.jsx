@@ -4,7 +4,7 @@ import {createUser, validateForm} from "./User.service";
 import "./_signUp.scss";
 
 function User() {
-  const initialUserInformation = {
+  const initialUserInformation = {  // Initial values for all signUp fields
     name: "",
     lastName: "",
     email: "",

@@ -1,23 +1,24 @@
 import "./App.scss";
-// import DemoComponent from "./components/component1/component1";
 import Header from "./components/header/Header";
-import User from "./components/user/User";
-import ManageContacts from "./components/contacts/ManageContacts";
+// import User from "./components/user/createUser/User";
+// import Login from "./components/user/login/Login";
+// import ManageContacts from "./components/contacts/ManageContacts";
+import Location from "./components/location/Location"
 
-const TestComponent = () => (
-  <div className="custom_class">Otro componente MOD</div>
-);
+import ReactDOM from 'react-dom'
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faPlusSquare, faCheckSquare, faCoffee } from '@fortawesome/free-solid-svg-icons';
 
-function TestComponent2() {
-  return <div>Componente 2</div>;
-}
+library.add(faPlusSquare, faCheckSquare, faCoffee);
 
 function App() {
   return (
     <div>
       <Header />
       {/* <ManageContacts/> */}
-      <User />
+      {/* {<User />} */}
+      {/* <Login /> */}
+      <Location />
     </div>
   );
 }

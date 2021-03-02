@@ -1,0 +1,73 @@
+.location_container {
+  width: 100%;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 0 4rem 0 4rem;
+  .head {
+    width: 100%;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .body {
+    .region {
+      margin: 2vh 0 2vh 0;
+      .region-header {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        // align-items: center;
+        justify-content: flex-start;
+        // background-color: yellowgreen;
+        h2 {
+          min-width: 20%;
+        }
+      }
+      .region-body {
+        width: 100%;
+        height: fit-content;
+        padding-left: 10%;
+        // background-color: tomato;
+        h2 {
+          min-width: 20%;
+        }
+        .country {
+          margin: 1vh 0 1vh 0;
+          // background-color: turquoise;
+          .country-header {
+            display: flex;
+          }
+          .country-body {
+            width: 100%;
+            height: fit-content;
+            padding-left: 10%;
+            // background-color: yellow;
+            .city {
+              margin: 1vh 0 1vh 0;
+              .city-header {
+                display: flex;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Buttons in separate file
+
+.add_region_btn {
+  padding: 0.6rem;
+}
+
+.btnAdd {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-end;
+  span {
+    display: block;
+  }
+}

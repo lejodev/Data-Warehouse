@@ -1,8 +1,6 @@
 import InfoActionsRow from "./infoActionsRow/InfoActionsRow";
 import ContactRow from "./contactsListTableBody/ContactsListTableBody";
 
-function name(params) {}
-
 function ContactsTable() {
   return (
     <div className="contactsList">
