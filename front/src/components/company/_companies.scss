@@ -1,0 +1,26 @@
+.companies {
+  width: 100%;
+  height: 100vh;
+  padding: 4rem;
+  .companies-header {
+    width: 100%;
+    display: flex;
+    background-color: turquoise;
+  }
+  .companies-container {
+    height: fit-content;
+    .companies-container-header {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        text-align: center;
+    }
+    .companies-container-body {
+      .company {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        text-align: center;
+        font-size: large;
+      }
+    }
+  }
+}

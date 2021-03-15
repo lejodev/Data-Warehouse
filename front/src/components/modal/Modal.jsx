@@ -6,8 +6,6 @@ import { createPortal } from "react-dom";
 const FormModal = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [data, setData] = useState(null);
-
-  console.log("INSIDEEEEEEEE");
   return (
     <Modal
       closeTimeoutMS={500}

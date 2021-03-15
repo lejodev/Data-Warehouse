@@ -3,7 +3,8 @@ import Header from "./components/header/Header";
 // import User from "./components/user/createUser/User";
 // import Login from "./components/user/login/Login";
 // import ManageContacts from "./components/contacts/ManageContacts";
-import Location from "./components/location/Location"
+import Location from "./components/location/Location";
+import Companies from "./components/company/Companies";
 
 import ReactDOM from 'react-dom'
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -18,7 +19,8 @@ function App() {
       {/* <ManageContacts/> */}
       {/* {<User />} */}
       {/* <Login /> */}
-      <Location />
+      {/* <Location /> */}
+      <Companies />
     </div>
   );
 }

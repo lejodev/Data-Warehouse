@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Region from "./region/Region";
 import "./_location.scss";
-import FormModal from "./Modal";
+import FormModal from "../modal/Modal";
 
 const Location = () => {
   const url = "http://localhost:3080/location/region";
@@ -23,14 +23,11 @@ const Location = () => {
   //   setAddRegion(!addRegion);
   // }
 
-  console.log("regions", regions);
   const modalStatus = () => {
-    console.log("toggleForm", toggleForm);
     return setToggleForm(!toggleForm);
   };
 
   const addData = (name) => {
-    console.log("name", name);
     let reqBody = {
       region: name,
     };
@@ -43,17 +40,34 @@ const Location = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log("Data", data);
         let newRegion = {
           id: data.lastId++,
           name: name,
         };
-        console.log("newRegion", newRegion);
         setRegions([...regions, newRegion]);
       })
       .catch((err) => {
         console.log("ERROR____------", err);
       });
+  };
+
+  const deleteRegion = (id) => {
+    fetch(`http://localhost:3080/location/region/${id}`, {
+      method: "DELETE",
+    }).then((resp) => {
+      console.log(resp);
+      if (resp.status === 200) {
+        setRegions(
+          regions.filter((region) => {
+            if (region.id != id) {
+              return region;
+            }
+          })
+        );
+      }
+    });
+    // console.log(regions);
+    // alert(`Delete ${id}`);
   };
 
   return (
@@ -71,7 +85,7 @@ const Location = () => {
       </div>
       <div className="body">
         {regions.map((region) => (
-          <Region key={region.id} Region={region} />
+          <Region key={region.id} Region={region} onDelete={deleteRegion} />
         ))}
       </div>
     </div>

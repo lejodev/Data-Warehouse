@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import Button from "../../buttons/Button";
-import FormModal from "../Modal";
+import FormModal from "../../modal/Modal";
 
 const City = (props) => {
+  const id = props.city.id;
   const [toggleForm, setToggleForm] = useState(false);
-  const [cities, setCities] = useState([]);
 
   const modalStatus = () => {
-    console.log("toggleForm", toggleForm);
     return setToggleForm(!toggleForm);
   };
 
   const addData = (name) => {
-    // console.log("name", name);
     // let reqBody = {
     //   region: name,
     // };
@@ -36,7 +34,6 @@ const City = (props) => {
     //   .catch((err) => {
     //     console.log("ERROR____------", err);
     //   });
-    console.log(name);
   };
 
   return (
@@ -44,7 +41,12 @@ const City = (props) => {
       <div className="city-header">
         <h2>{props.name}</h2>
         <Button text1="Edit" onToggleFunction={modalStatus} />
-        <Button text1="Delete" onToggleFunction={modalStatus} />
+        <Button
+          text1="Delete"
+          onToggleFunction={() => {
+            props.onDelete(id);
+          }}
+        />
         <FormModal
           showModal={toggleForm}
           title="Add Region"

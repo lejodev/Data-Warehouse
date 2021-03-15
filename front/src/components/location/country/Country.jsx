@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
 import City from "../city/City";
-import FormModal from "../Modal";
+import FormModal from "../../modal/Modal";
 
 const Country = (props) => {
   const id = props.Country.id;
@@ -9,58 +9,88 @@ const Country = (props) => {
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
-    const getCities = (CountryId) => {
-      fetch(`http://localhost:3080/location/city/${CountryId}`)
+    const getCities = async (CountryId) => {
+      await fetch(`http://localhost:3080/location/city/${CountryId}`)
+        .then((resp) => {
+          return resp.status === 200 ? resp : Promise.reject("Empty response");
+        })
         .then((resp) => resp.json())
         .then((data) => {
-          console.log("DATA", data);
           setCities(data);
-        });
+        })
+        .catch((err) => {});
     };
     getCities(id);
   }, []);
 
-  console.log("CITIES", cities);
-
   const modalStatus = () => {
-    console.log("toggleForm", toggleForm);
     return setToggleForm(!toggleForm);
   };
 
+  let show = true;
+  const deleteCountry = () => (show = false);
+
   const addData = (name) => {
-    console.log("name", name);
     let reqBody = {
       name: name,
-      regionid: 0,
+      countryId: id,
     };
-    console.log("RegionId", id);
-    // fetch("http://localhost:3080/location/city/${id}", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(reqBody),
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((data) => {
-    //     console.log("Data", data);
-    //     let newRegion = {
-    //       id: data.lastId++,
-    //       name: name,
-    //     };
-    //     console.log("newRegion", newRegion);
-    //     setRegions([...regions, newRegion]);
-    //   })
-    //   .catch((err) => {
-    //     console.log("ERROR____------", err);
-    //   });
+    console.log("reqBody", reqBody);
+    fetch("http://localhost:3080/location/city", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log("Data", data);
+        let newCity = {
+          id: data.lastId++,
+          name: name,
+        };
+        console.log("newCity", newCity);
+        setCities([...cities, newCity]);
+      })
+      .catch((err) => {
+        console.log("ERROR____------", err);
+      });
   };
 
   const editCountry = (id) => {
     alert(`Edit. Country id: : ${id}`);
   };
 
-  return (
+  function useModal() {
+    console.log(show);
+    return (
+      <FormModal
+        showModal={toggleForm}
+        title="Add City"
+        modalStatus={modalStatus}
+        onAdd={addData}
+      />
+    );
+  }
+
+  const deleteCity = (id) => {
+    fetch(`http://localhost:3080/location/city/${id}`, {
+      method: "DELETE",
+    }).then((resp) => {
+      if (resp.status === 200) {
+        setCities(
+          cities.filter((city) => {
+            if (city.id != id) {
+              return city;
+            }
+          })
+        );
+      }
+    });
+  };
+
+  return show ? (
     <div className="country">
       <div className="country-header">
         <h2>{props.Country.name}</h2>
@@ -70,7 +100,12 @@ const Country = (props) => {
           onToggleFunction={editCountry}
           id={id}
         />
-        <Button text1="Delete" onToggleFunction={modalStatus} />
+        <Button
+          text1="Delete"
+          onToggleFunction={() => {
+            props.onDelete(id);
+          }}
+        />
         <Button
           additional_class="btnAdd"
           text1="Add City"
@@ -86,10 +121,17 @@ const Country = (props) => {
       </div>
       <div className="country-body">
         {cities.map((city) => (
-          <City key={city.id} name={city.name} />
+          <City
+            key={city.id}
+            name={city.name}
+            city={city}
+            onDelete={deleteCity}
+          />
         ))}
       </div>
     </div>
+  ) : (
+    ""
   );
 };
 
