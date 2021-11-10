@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import {createUser, validateForm} from "./User.service";
 import "./_signUp.scss";
 
-function User() {
+function SignUp() {
   const initialUserInformation = {  // Initial values for all signUp fields
     name: "",
     lastName: "",
@@ -104,4 +104,4 @@ function User() {
   );
 }
 
-export default User;
+export default SignUp;
