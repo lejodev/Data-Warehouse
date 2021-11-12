@@ -2,12 +2,12 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
-
 const userSchema = require("../models/Schema.User");
 var { userExists } = require("../utils/utils.common.queries");
-const JWTSecret = process.env.JWT_SECRET;
 
 require("dotenv").config();
+
+var JWTSecret = process.env.JWT_SECRET;
 
 const router = express.Router();
 router.use(express.json());
@@ -44,7 +44,12 @@ router.post("/signIn", async (req, res) => {
   const user = await userExists(userName);
   if (user) {
     const userInfo = await userSchema.findOne({ userName });
-    console.log(userInfo.password);
+    const payload = {
+      id: userInfo._id,
+      userName: userInfo.userName,
+    };
+    const token = await jwt.sign(payload, JWTSecret);
+    res.status(200).json({ Token: token });
   } else {
     res.status(400).json({ Message: "User does not exist" });
   }
