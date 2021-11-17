@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const expressJWT = require("express-jwt");
 const user = require("./routes/user");
-const indexRouter = require("./routes/index");
+const location = require("./routes/location");
 const mongoose = require("mongoose");
 
 require("dotenv").config();
@@ -25,8 +25,8 @@ app.use(express.json());
 //   })
 // );
 
-app.use("/", indexRouter);
 app.use("/user", user);
+app.use("/location", location);
 
 const PORT = process.env.PORT || 3050;
 app.listen(PORT, () => {

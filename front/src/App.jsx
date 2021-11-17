@@ -20,9 +20,9 @@ function App() {
     <div>
       <Header />
       {/* <ManageContacts/> */}
-      <SignUp />
+      {/* <SignUp /> */}
       {/* <Login /> */}
-      {/* <Location /> */}
+      <Location />
     </div>
   );
 }
