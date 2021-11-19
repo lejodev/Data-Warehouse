@@ -2,7 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const expressJWT = require("express-jwt");
 const user = require("./routes/user");
-const location = require("./routes/location");
+const region = require("./routes/location/region");
+const country = require("./routes/location/country");
+const city = require("./routes/location/city");
 const mongoose = require("mongoose");
 
 require("dotenv").config();
@@ -26,7 +28,9 @@ app.use(express.json());
 // );
 
 app.use("/user", user);
-app.use("/location", location);
+app.use("/location/region", region);
+app.use("/location/country", country);
+app.use("/location/city", city);
 
 const PORT = process.env.PORT || 3050;
 app.listen(PORT, () => {
