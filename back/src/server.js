@@ -6,6 +6,7 @@ const region = require("./routes/location/region");
 const country = require("./routes/location/country");
 const city = require("./routes/location/city");
 const mongoose = require("mongoose");
+const cors = require("cors")
 
 require("dotenv").config();
 
@@ -27,6 +28,7 @@ app.use(express.json());
 //   })
 // );
 
+app.use(cors())
 app.use("/user", user);
 app.use("/location/region", region);
 app.use("/location/country", country);

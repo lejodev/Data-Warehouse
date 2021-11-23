@@ -6,33 +6,28 @@ import FormModal from "../Modal";
 const Region = (props) => {
   const [toggleForm, setToggleForm] = useState(false);
   const [countries, setCountries] = useState([]);
-  const id = props.Region.id;
+  const id = props.Region._id;
 
   useEffect(() => {
     const getcountries = async (regionId) => {
       const res = await fetch(
-        `http://localhost:3080/location/country/${regionId}`
+        `http://localhost:3050/location/country/${regionId}`
       );
       const data = await res.json();
-      console.log("countries", data);
       setCountries(data);
     };
     getcountries(id);
   }, []);
 
   const modalStatus = () => {
-    console.log("toggleForm", toggleForm);
     return setToggleForm(!toggleForm);
   };
 
   const addData = (name) => {
-    console.log("This is the region id", id);
-    console.log("name", name);
     let reqBody = {
       name: name,
       regionid: id,
     };
-    console.log(reqBody);
     fetch("http://localhost:3080/location/country", {
       method: "POST",
       headers: {
@@ -42,18 +37,13 @@ const Region = (props) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log("Data", data);
         let newCountry = {
           id: data.lastId++,
           name: name,
         };
-        console.log("newCountry", newCountry);
         setCountries([...countries, newCountry]);
       })
-      .catch((err) => {
-        console.log("ERROR____------", err);
-      });
-    console.log(name);
+      .catch((err) => {});
   };
   const addCountry = (id) => {
     alert(id);
@@ -88,7 +78,7 @@ const Region = (props) => {
       </div>
       <div className="region-body">
         {countries.map((country) => (
-          <Country key={country.id} Country={country} />
+          <Country key={country._id} Country={country} />
         ))}
       </div>
     </div>

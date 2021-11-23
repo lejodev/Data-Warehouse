@@ -4,36 +4,30 @@ import City from "../city/City";
 import FormModal from "../Modal";
 
 const Country = (props) => {
-  const id = props.Country.id;
+  const id = props.Country._id;
   const [toggleForm, setToggleForm] = useState(false);
   const [cities, setCities] = useState([]);
 
   useEffect(() => {
     const getCities = (CountryId) => {
-      fetch(`http://localhost:3080/location/city/${CountryId}`)
+      fetch(`http://localhost:3050/location/city/${CountryId}`)
         .then((resp) => resp.json())
         .then((data) => {
-          console.log("DATA", data);
           setCities(data);
         });
     };
     getCities(id);
   }, []);
 
-  console.log("CITIES", cities);
-
   const modalStatus = () => {
-    console.log("toggleForm", toggleForm);
     return setToggleForm(!toggleForm);
   };
 
   const addData = (name) => {
-    console.log("name", name);
     let reqBody = {
       name: name,
       regionid: 0,
     };
-    console.log("RegionId", id);
     // fetch("http://localhost:3080/location/city/${id}", {
     //   method: "POST",
     //   headers: {
@@ -86,7 +80,7 @@ const Country = (props) => {
       </div>
       <div className="country-body">
         {cities.map((city) => (
-          <City key={city.id} name={city.name} />
+          <City key={city._id} name={city.name} />
         ))}
       </div>
     </div>

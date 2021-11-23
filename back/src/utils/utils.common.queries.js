@@ -19,8 +19,7 @@ async function countryExists(country) {
 }
 
 async function cityExists(city) {
-  var request = await citySchema.find();
-  console.log(request)
+  var request = await citySchema.find({ name: city });
   return request.length >= 1;
 }
 

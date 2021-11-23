@@ -4,7 +4,7 @@ import "./_location.scss";
 import FormModal from "./Modal";
 
 const Location = () => {
-  const url = "http://localhost:3080/location/region";
+  const url = "http://localhost:3050/location/region";
 
   const [regions, setRegions] = useState([]);
   // const [addRegion, setAddRegion] = useState(false);
@@ -23,14 +23,11 @@ const Location = () => {
   //   setAddRegion(!addRegion);
   // }
 
-  console.log("regions", regions);
   const modalStatus = () => {
-    console.log("toggleForm", toggleForm);
     return setToggleForm(!toggleForm);
   };
 
   const addData = (name) => {
-    console.log("name", name);
     let reqBody = {
       region: name,
     };
@@ -43,16 +40,13 @@ const Location = () => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        console.log("Data", data);
         let newRegion = {
           id: data.lastId++,
           name: name,
         };
-        console.log("newRegion", newRegion);
         setRegions([...regions, newRegion]);
       })
-      .catch((err) => {
-        console.log("ERROR____------", err);
+      .catch((err) => {alert("Error")
       });
   };
 
@@ -71,7 +65,7 @@ const Location = () => {
       </div>
       <div className="body">
         {regions.map((region) => (
-          <Region key={region.id} Region={region} />
+          <Region key={region._id} Region={region} />
         ))}
       </div>
     </div>

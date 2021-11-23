@@ -3,6 +3,17 @@ const regionsSchema = require("../../models/Schema.Region");
 const router = express.Router();
 const regionExists = require("../../utils/utils.common.queries").regionExists;
 
+router.get("/", async (req, res) => {
+  const request = await regionsSchema
+    .find()
+    .then((resp) => {
+      res.status(200).json(resp);
+    })
+    .catch((err) => {
+      res.status(400).json({ Error: err });
+    });
+});
+
 router.post("/", async (req, res) => {
   const { name } = req.body;
   const region = new regionsSchema({
@@ -29,11 +40,9 @@ router.patch("/:regionId", async (req, res) => {
   const name = req.body.name;
   regionsSchema.findByIdAndUpdate(id, { name: name }, (err, doc) => {
     if (err) {
-      console.log(err);
       res.status(400).json({ Error: err });
     } else {
       res.status(200).json({ Success: "Region updated successfully" });
-      console.log(doc);
     }
   });
 });

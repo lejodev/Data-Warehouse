@@ -3,6 +3,17 @@ const countrySchema = require("../../models/Schema.Country");
 const countryExists = require("../../utils/utils.common.queries").countryExists;
 const router = express.Router();
 
+router.get("/:regionId", async (req, res) => {
+  const idRegion = req.params.regionId;
+  countrySchema.find({ regionId: idRegion }, (err, doc) => {
+    if (err) {
+      res.status(400).json({ Error: err });
+    } else {
+      res.status(200).json(doc)
+    }
+  });
+});
+
 router.post("/", async (req, res) => {
   const { name, regionId } = req.body;
   const country = new countrySchema({ name: name, regionId: regionId });
