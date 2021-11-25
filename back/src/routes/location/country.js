@@ -1,6 +1,8 @@
 const express = require("express");
 const countrySchema = require("../../models/Schema.Country");
 const countryExists = require("../../utils/utils.common.queries").countryExists;
+const deleteCity = require("../../utils/utils.common.queries").deleteCity
+
 const router = express.Router();
 
 router.get("/:regionId", async (req, res) => {
@@ -44,9 +46,10 @@ router.patch("/:id", async (req, res) => {
   });
 });
 
-// Cascade delete (pending)
+
 router.delete("/:id", async (req, res) => {
   const id = req.params.id;
+  await deleteCity(id)
   countrySchema
     .findByIdAndDelete(id)
     .then((_) => {

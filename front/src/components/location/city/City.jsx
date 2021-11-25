@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
 import FormModal from "../Modal";
 
 const City = (props) => {
   const [toggleForm, setToggleForm] = useState(false);
   const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    console.log(props);
+  }, []);
 
   const modalStatus = () => {
     console.log("toggleForm", toggleForm);
@@ -42,7 +46,7 @@ const City = (props) => {
   return (
     <div className="city">
       <div className="city-header">
-        <h2>{props.name}</h2>
+        <h2>{props.city.name}</h2>
         <Button text1="Edit" onToggleFunction={modalStatus} />
         <Button text1="Delete" onToggleFunction={modalStatus} />
         <FormModal

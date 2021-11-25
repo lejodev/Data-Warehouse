@@ -26,28 +26,28 @@ const Country = (props) => {
   const addData = (name) => {
     let reqBody = {
       name: name,
-      regionid: 0,
+      countryId: id,
     };
-    // fetch("http://localhost:3080/location/city/${id}", {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(reqBody),
-    // })
-    //   .then((resp) => resp.json())
-    //   .then((data) => {
-    //     console.log("Data", data);
-    //     let newRegion = {
-    //       id: data.lastId++,
-    //       name: name,
-    //     };
-    //     console.log("newRegion", newRegion);
-    //     setRegions([...regions, newRegion]);
-    //   })
-    //   .catch((err) => {
-    //     console.log("ERROR____------", err);
-    //   });
+    fetch("http://localhost:3050/location/city/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((resp) => resp.json())
+      .then((data) => {
+        console.log("Data", data);
+        let newRegion = {
+          id: data.lastId++,
+          name: name,
+        };
+        console.log("City", data);
+        setCities([...cities, newRegion]);
+      })
+      .catch((err) => {
+        console.log("ERROR____------", err);
+      });
   };
 
   const editCountry = (id) => {
@@ -80,7 +80,7 @@ const Country = (props) => {
       </div>
       <div className="country-body">
         {cities.map((city) => (
-          <City key={city._id} name={city.name} />
+          <City key={city._id} city={city} />
         ))}
       </div>
     </div>

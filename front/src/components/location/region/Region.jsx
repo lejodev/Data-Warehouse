@@ -26,9 +26,9 @@ const Region = (props) => {
   const addData = (name) => {
     let reqBody = {
       name: name,
-      regionid: id,
+      regionId: id,
     };
-    fetch("http://localhost:3080/location/country", {
+    fetch("http://localhost:3050/location/country", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -37,11 +37,11 @@ const Region = (props) => {
     })
       .then((resp) => resp.json())
       .then((data) => {
-        let newCountry = {
-          id: data.lastId++,
-          name: name,
-        };
-        setCountries([...countries, newCountry]);
+        // let newCountry = {
+        //   id: data.lastId++,
+        //   name: name,
+        // };
+        // setCountries([...countries, newCountry]);
       })
       .catch((err) => {});
   };

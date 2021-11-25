@@ -23,4 +23,41 @@ async function cityExists(city) {
   return request.length >= 1;
 }
 
-module.exports = { userExists, regionExists, countryExists, cityExists };
+async function cascadeDeleteRegion(regionId) {
+  const countries = await countrySchema.find({ regionId: regionId });
+
+  try {
+    await Promise.all(
+      countries.map((country) => {
+        deleteCity(country._id);
+      })
+    );
+    await deleteCountry(regionId);
+    await deleteRegion(regionId);
+  } catch (error) {
+    throw `Error while deleting region ${error}`;
+  }
+}
+
+async function deleteRegion(id) {
+  return await regionSchema.findByIdAndDelete(id);
+}
+
+async function deleteCountry(id) {
+  return await countrySchema.deleteMany({ regionId: id });
+}
+
+async function deleteCity(id) {
+  return await citySchema.deleteMany({ countryId: id });
+}
+
+module.exports = {
+  userExists,
+  regionExists,
+  countryExists,
+  cityExists,
+  cascadeDeleteRegion,
+  deleteRegion,
+  deleteCountry,
+  deleteCity,
+};

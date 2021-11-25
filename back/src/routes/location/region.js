@@ -1,7 +1,11 @@
 const express = require("express");
 const regionsSchema = require("../../models/Schema.Region");
-const router = express.Router();
 const regionExists = require("../../utils/utils.common.queries").regionExists;
+const deleteCountry = require("../../utils/utils.common.queries").deleteCountry;
+const cascadeDeleteRegion =
+  require("../../utils/utils.common.queries").cascadeDeleteRegion;
+
+const router = express.Router();
 
 router.get("/", async (req, res) => {
   const request = await regionsSchema
@@ -47,17 +51,16 @@ router.patch("/:regionId", async (req, res) => {
   });
 });
 
-//Cascade delete (pending)
 router.delete("/:regionId", async (req, res) => {
   const id = req.params.regionId;
-  regionsSchema
-    .findByIdAndDelete(id)
-    .then((resp) => {
-      res.status(200).json({ Success: "Region deleted successfully" });
-    })
-    .catch((err) => {
-      res.status(400).json({ Error: err });
-    });
+
+  try {
+    await cascadeDeleteRegion(id);
+    res.status(200).json({ Success: "Region Successfully deleted" });
+  } catch (Error) {
+    res.status(400).json({ Error: Error });
+    console.log(Error);
+  }
 });
 
 module.exports = router;
