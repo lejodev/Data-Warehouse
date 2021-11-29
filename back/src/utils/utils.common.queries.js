@@ -2,6 +2,7 @@ const userSchema = require("../models/Schema.User");
 const regionSchema = require("../models/Schema.Region");
 const countrySchema = require("../models/Schema.Country");
 const citySchema = require("../models/Schema.City");
+const comapnySchema = require("../models/Schema.Company");
 
 async function userExists(userName) {
   var request = await userSchema.find({ userName: userName });
@@ -51,6 +52,11 @@ async function deleteCity(id) {
   return await citySchema.deleteMany({ countryId: id });
 }
 
+async function companyExists(name) {
+  const company = await comapnySchema.find({ name: name });
+  return company.length >= 1;
+}
+
 module.exports = {
   userExists,
   regionExists,
@@ -60,4 +66,5 @@ module.exports = {
   deleteRegion,
   deleteCountry,
   deleteCity,
+  companyExists,
 };

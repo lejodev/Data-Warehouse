@@ -5,8 +5,9 @@ const user = require("./routes/user");
 const region = require("./routes/location/region");
 const country = require("./routes/location/country");
 const city = require("./routes/location/city");
+const company = require("./routes/company");
 const mongoose = require("mongoose");
-const cors = require("cors")
+const cors = require("cors");
 
 require("dotenv").config();
 
@@ -28,11 +29,12 @@ app.use(express.json());
 //   })
 // );
 
-app.use(cors())
+app.use(cors());
 app.use("/user", user);
 app.use("/location/region", region);
 app.use("/location/country", country);
 app.use("/location/city", city);
+app.use("/company", company);
 
 const PORT = process.env.PORT || 3050;
 app.listen(PORT, () => {
