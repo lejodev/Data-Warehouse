@@ -86,7 +86,9 @@ router.patch("/:contactId", async (req, res) => {
 
 router.delete("/:contactId", async (req, res) => {
   const id = req.params.contactId;
-  ContactSchema.findByIdAndDelete(id)
+  ContactSchema.findByIdAndDelete(id);
+  console
+    .log(id)
     .then((_) => {
       res.status(200).json({ Success: "Contact deleted successfully" });
     })
