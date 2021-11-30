@@ -3,6 +3,7 @@ const regionSchema = require("../models/Schema.Region");
 const countrySchema = require("../models/Schema.Country");
 const citySchema = require("../models/Schema.City");
 const comapnySchema = require("../models/Schema.Company");
+const contactSchema = require("../models/Schema.Contact");
 
 async function userExists(userName) {
   var request = await userSchema.find({ userName: userName });
@@ -57,6 +58,11 @@ async function companyExists(name) {
   return company.length >= 1;
 }
 
+async function contactExists(contactObject) {
+  const contact = await contactSchema.find(contactObject);
+  return contact.length >= 1;
+}
+
 module.exports = {
   userExists,
   regionExists,
@@ -67,4 +73,5 @@ module.exports = {
   deleteCountry,
   deleteCity,
   companyExists,
+  contactExists,
 };
