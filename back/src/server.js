@@ -6,6 +6,7 @@ const region = require("./routes/location/region");
 const country = require("./routes/location/country");
 const city = require("./routes/location/city");
 const company = require("./routes/company");
+const contact = require("./routes/contact");
 const mongoose = require("mongoose");
 const cors = require("cors");
 
@@ -35,6 +36,7 @@ app.use("/location/region", region);
 app.use("/location/country", country);
 app.use("/location/city", city);
 app.use("/company", company);
+app.use("/contact", contact);
 
 const PORT = process.env.PORT || 3050;
 app.listen(PORT, () => {
