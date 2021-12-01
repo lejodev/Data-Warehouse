@@ -12,7 +12,7 @@ function SignUp() {
     password: ""
   };
 
-  // hoock to manage user json
+  // hook to manage user json
   const [user, setUser] = useState(initialUserInformation);
 
   // hock for validate pass
