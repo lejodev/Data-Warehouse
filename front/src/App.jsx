@@ -1,4 +1,5 @@
 import "./App.scss";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./components/header/Header";
 import SignUp from "./components/user/createUser/User";
 import Login from "./components/user/login/Login";
@@ -17,13 +18,16 @@ library.add(faPlusSquare, faCheckSquare, faCoffee);
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      {/* <ManageContacts/> */}
-      {/* <SignUp /> */}
-      {/* <Login /> */}
-      <Location />
-    </div>
+      <Routes>
+        <Route exact path="/" element={<Login />} />
+        <Route path="/contacts" element={<ManageContacts />} />
+        <Route path="/signUp" element={<SignUp />} />
+        <Route path="/location" element={<Location />} />
+        {/* <Route path="/companies" element={<Companies />} /> */}
+      </Routes>
+    </BrowserRouter>
   );
 }
 
