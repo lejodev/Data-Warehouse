@@ -1,101 +1,97 @@
 import React, { useState } from "react";
+import { BrowserRouter, link } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router";
 
-import {createUser, validateForm} from "./User.service";
+import { createUser, validateForm } from "./User.service";
 import "./_signUp.scss";
 
 function SignUp() {
-  const initialUserInformation = {  // Initial values for all signUp fields
-    name: "",
-    lastName: "",
-    email: "",
-    profile: "",
-    password: ""
-  };
+  const { register, handleSubmit } = useForm();
 
-  // hook to manage user json
-  const [user, setUser] = useState(initialUserInformation);
+  const navigate = useNavigate();
 
-  // hock for validate pass
-  const [validatePass, setValidatePass] = useState('');
+  const onSubmit = (data) => {
+    const requestBody = JSON.stringify(data);
 
-  const createUserEvent = (e) => {
-    e.preventDefault();
-
-    if(validateForm(user, validatePass)) {
-        createUser(user);
-    } else {
-        alert("Pass does not match");
-    }    
-  };
-
-  // change state of user json
-  const handlerEventInputs = (e) => {
-    const {name, value} = e.target;    
-
-    let newUser = {
-        ...user,
-        [name]: value
-    }
-    setUser(newUser);
+    fetch("http://localhost:3050/user/signUp", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: requestBody,
+    })
+      .then((resp) =>
+        resp.status == 200
+          ? resp.json()
+          : Promise.reject(new Error("Error while signUp"))
+      )
+      .then((resp) => {
+        navigate("/contacts");
+      })
+      .catch((err) => {
+        console.log(err);
+        alert("Error while signUp");
+      });
+    console.log(data);
   };
 
   return (
     <div className="form-container">
-      <form className="signUp-form" onSubmit={createUserEvent}>
+      <form className="signUp-form" onSubmit={handleSubmit(onSubmit)}>
         <h2 className="title">Create user</h2>
-        <label className="label">
+        <label htmlFor="name" className="label">
           Name
           <input
             type="text"
+            id="name"
             className="input name"
-            value={user.name}
-            name="name"
-            onChange={handlerEventInputs}
+            {...register("name")}
           />
         </label>
-        <label className="label">
-          Last Name
-          <input 
-            type="text" 
-            className="input lastName"
-            value={user.lastName}
-            name="lastName"
-            onChange={handlerEventInputs}/>
+        <label htmlFor="lastName" className="label">
+          Last name
+          <input
+            type="text"
+            id="lastName"
+            className="lastName input"
+            {...register("last name")}
+          />
         </label>
-        <label className="label">
-          Email 
-          <input 
-            type="email" 
+        <label htmlFor="email" className="label">
+          Email
+          <input
+            type="email"
+            id="email"
             className="input email"
-            value={user.email}
-            name="email"
-            onChange={handlerEventInputs}/>
+            {...register("email")}
+          />
         </label>
-        <label className="label">
-          Profile 
-          <input 
-            type="text" 
+        <label htmlFor="profile" className="label">
+          Profile
+          <input
+            id="profile"
+            type="text"
             className="input profile"
-            value={user.profile}
-            name="profile"
-            onChange={handlerEventInputs}/>
+            {...register("profile")}
+          />
         </label>
-        <label className="label">
+        <label htmlFor="password" className="label">
           Password
-          <input 
-            type="password" 
-            className="input" 
-            value={user.password}
-            name="password"
-            onChange={handlerEventInputs}/>
-        </label>
-        <label className="label">
-          Repeat Password
           <input
             type="password"
-            value={validatePass}
-            onChange={e => setValidatePass(e.target.value)}
-            className="input"           
+            className="input"
+            id="password"
+            {...register("password")}
+          />
+        </label>
+        <label htmlFor="repeatPassword" className="label">
+          Repeat password
+          <input
+            type="password"
+            className="input"
+            id="repeatPassword"
+            {...register("repeat password")}
           />
         </label>
         <input type="submit" className="button-send input" value="CREATE" />
