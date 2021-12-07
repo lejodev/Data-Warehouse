@@ -51,7 +51,7 @@ router.post("/signIn", async (req, res) => {
     const token = await jwt.sign(payload, JWTSecret);
     res.status(200).json({ Token: token });
   } else {
-    res.status(400).json({ Message: "User does not exist" });
+    res.status(404).json({ Message: "User does not exist" });
   }
 });
 

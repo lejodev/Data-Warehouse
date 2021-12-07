@@ -18,18 +18,15 @@ function Login(props) {
       },
       body: requestBody,
     })
-      .then((resp) =>
-        resp.status == 200
-          ? resp.json()
-          : Promise.reject(new Error("LOGIN ERROR"))
-      )
+      .then((resp) => (resp.status == 200 ? resp.json() : Promise.reject(resp)))
       .then((token) => {
         localStorage.setItem("token", token);
-        navigate("/signUp");
+        navigate("/contacts");
       })
       .catch((err) => {
-        alert("Error");
-        console.log(err);
+        if (err.status == 404) {
+          alert("User doesn't exists");
+        }
       });
   };
 

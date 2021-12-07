@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
 import Country from "../country/Country";
-import FormModal from "../Modal";
+import Modal from "../../modals/form/ModalAdd";
 
 const Region = (props) => {
-  const [toggleForm, setToggleForm] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [countries, setCountries] = useState([]);
   const id = props.Region._id;
 
@@ -18,10 +18,6 @@ const Region = (props) => {
     };
     getcountries(id);
   }, []);
-
-  const modalStatus = () => {
-    return setToggleForm(!toggleForm);
-  };
 
   const addData = (name) => {
     let reqBody = {
@@ -66,15 +62,10 @@ const Region = (props) => {
         <Button
           additional_class="btnAdd"
           text1="Add Country"
-          onToggleFunction={modalStatus}
           id={id}
+          onClick={() => {alert("sdfg")}}
         />
-        <FormModal
-          showModal={toggleForm}
-          title="Add Country"
-          modalStatus={modalStatus}
-          onAdd={addData}
-        />
+        <Modal open={isOpen}>children</Modal>
       </div>
       <div className="region-body">
         {countries.map((country) => (

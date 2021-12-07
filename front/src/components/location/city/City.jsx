@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
-import FormModal from "../Modal";
+import FormModal from "../../modals/form/ModalAdd";
 
 const City = (props) => {
   const [toggleForm, setToggleForm] = useState(false);

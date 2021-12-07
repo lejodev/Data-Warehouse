@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
 import City from "../city/City";
-import FormModal from "../Modal";
+import FormModal from "../../modals/form/ModalAdd";
 
 const Country = (props) => {
   const id = props.Country._id;
+  console.log(id)
   const [toggleForm, setToggleForm] = useState(false);
   const [cities, setCities] = useState([]);
 
@@ -13,6 +14,7 @@ const Country = (props) => {
       fetch(`http://localhost:3050/location/city/${CountryId}`)
         .then((resp) => resp.json())
         .then((data) => {
+          console.log(data)
           setCities(data);
         });
     };
@@ -79,9 +81,9 @@ const Country = (props) => {
         />
       </div>
       <div className="country-body">
-        {cities.map((city) => (
+        {/* {cities.map((city) => (
           <City key={city._id} city={city} />
-        ))}
+        ))} */}
       </div>
     </div>
   );

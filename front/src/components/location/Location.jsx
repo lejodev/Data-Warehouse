@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Region from "./region/Region";
 import "./_location.scss";
-import FormModal from "./Modal";
+import Modal from "../modals/form/ModalAdd";
+import Button from "../buttons/Button";
 
 const Location = () => {
   const url = "http://localhost:3050/location/region";
 
   const [regions, setRegions] = useState([]);
   // const [addRegion, setAddRegion] = useState(false);
-  const [toggleForm, setToggleForm] = useState(false);
+
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const getRegions = async () => {
@@ -23,15 +25,11 @@ const Location = () => {
   //   setAddRegion(!addRegion);
   // }
 
-  const modalStatus = () => {
-    return setToggleForm(!toggleForm);
-  };
-
   const addData = (name) => {
     let reqBody = {
       region: name,
     };
-    fetch("http://localhost:3080/location/region", {
+    fetch("http://localhost:3050/location/region", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -46,22 +44,20 @@ const Location = () => {
         };
         setRegions([...regions, newRegion]);
       })
-      .catch((err) => {alert("Error")
+      .catch((err) => {
+        alert("Error");
       });
   };
 
   return (
     <div className="location_container">
       <div className="head">
-        <button onClick={modalStatus} className="add_region_btn">
-          Add Region
+        <button className="add_region_btn" onClick={() => setIsOpen(true)}>
+          Add region
         </button>
-        <FormModal
-          showModal={toggleForm}
-          title="Add Region"
-          modalStatus={modalStatus}
-          onAdd={addData}
-        />
+        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+          children
+        </Modal>
       </div>
       <div className="body">
         {regions.map((region) => (

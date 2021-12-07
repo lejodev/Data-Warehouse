@@ -13,27 +13,29 @@ function SignUp() {
 
   const onSubmit = (data) => {
     const requestBody = JSON.stringify(data);
-
-    fetch("http://localhost:3050/user/signUp", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: requestBody,
-    })
-      .then((resp) =>
-        resp.status == 200
-          ? resp.json()
-          : Promise.reject(new Error("Error while signUp"))
-      )
-      .then((resp) => {
-        navigate("/contacts");
+    if (data.password == data.repeatPassword) {
+      delete data.repeatPassword;
+      fetch("http://localhost:3050/user/signUp", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: requestBody,
       })
-      .catch((err) => {
-        console.log(err);
-        alert("Error while signUp");
-      });
-    console.log(data);
+        .then((resp) =>
+          resp.status == 200 ? resp.json() : Promise.reject(resp)
+        )
+        .then((resp) => {
+          navigate("/");
+        })
+        .catch((err) => {
+          console.log(err);
+          alert("Error while signUp");
+        });
+    } else {
+      alert("Passwords doesn't match");
+      console.log(data);
+    }
   };
 
   return (
@@ -46,7 +48,7 @@ function SignUp() {
             type="text"
             id="name"
             className="input name"
-            {...register("name")}
+            {...register("userName")}
           />
         </label>
         <label htmlFor="lastName" className="label">
@@ -55,7 +57,7 @@ function SignUp() {
             type="text"
             id="lastName"
             className="lastName input"
-            {...register("last name")}
+            {...register("lastName")}
           />
         </label>
         <label htmlFor="email" className="label">
@@ -91,7 +93,7 @@ function SignUp() {
             type="password"
             className="input"
             id="repeatPassword"
-            {...register("repeat password")}
+            {...register("repeatPassword")}
           />
         </label>
         <input type="submit" className="button-send input" value="CREATE" />
