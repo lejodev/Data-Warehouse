@@ -31,11 +31,11 @@ router.post("/", async (req, res) => {
       if (err) {
         res.status(400).json({ Error: err });
       } else {
-        res.status(200).json({ Success: "Region added successfully" });
+        res.status(200).json({ Message: "Success", region: region });
       }
     });
   } else {
-    res.status(400).json({ Warinig: "Region already exists" });
+    res.status(404).json({ Warinig: "Region already exists" });
   }
 });
 

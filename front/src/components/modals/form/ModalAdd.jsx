@@ -5,12 +5,13 @@ import { useForm } from "react-hook-form";
 import { createPortal } from "react-dom";
 
 //ADD - EDIT
-const Modal = ({ open, children, onClose }) => {
+const Modal = ({ open, children, onClose, onSetData }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
     console.log(data);
     reset({ input: "" });
+    onSetData(data);
     onClose();
   };
 
@@ -20,11 +21,7 @@ const Modal = ({ open, children, onClose }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <label htmlFor="input">
             {children}
-            <input
-              type="text"
-              id="input"
-              {...register("input")}
-            />
+            <input type="text" id="input" {...register("input")} />
           </label>
           <input type="submit" value="SEND" />
         </form>

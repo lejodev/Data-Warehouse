@@ -21,14 +21,12 @@ const Location = () => {
     getRegions();
   }, []);
 
-  // function onAddRegion() {
-  //   setAddRegion(!addRegion);
-  // }
-
-  const addData = (name) => {
-    let reqBody = {
-      region: name,
+  function onSetData(data) {
+    console.log(data);
+    const reqBody = {
+      name: data.input,
     };
+    console.log(reqBody);
     fetch("http://localhost:3050/location/region", {
       method: "POST",
       headers: {
@@ -36,18 +34,30 @@ const Location = () => {
       },
       body: JSON.stringify(reqBody),
     })
-      .then((resp) => resp.json())
-      .then((data) => {
-        let newRegion = {
-          id: data.lastId++,
-          name: name,
-        };
-        setRegions([...regions, newRegion]);
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
+        } else {
+          return Promise.reject(new Error(resp.json()));
+        }
+      })
+      .then(
+        (data) => {
+          setRegions([...regions, data.region]);
+        },
+        (err) => {
+          throw new Error(err);
+        }
+      )
+      .then(null, (err) => {
+        console.log(err);
       })
       .catch((err) => {
-        alert("Error");
+        console.log(err);
+        // console.log(await err);
+        // alert(err);
       });
-  };
+  }
 
   return (
     <div className="location_container">
@@ -55,7 +65,11 @@ const Location = () => {
         <button className="add_region_btn" onClick={() => setIsOpen(true)}>
           Add region
         </button>
-        <Modal open={isOpen} onClose={() => setIsOpen(false)}>
+        <Modal
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          onSetData={onSetData}
+        >
           children
         </Modal>
       </div>
