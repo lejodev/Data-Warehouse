@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Region from "./region/Region";
 import "./_location.scss";
-import Modal from "../modals/form/ModalAdd";
+import ModalAdd from "../modals/add/Modal.Add";
 import Button from "../buttons/Button";
 
 const Location = () => {
@@ -21,6 +21,7 @@ const Location = () => {
     getRegions();
   }, []);
 
+  //Modularize
   function onSetData(data) {
     console.log(data);
     const reqBody = {
@@ -34,29 +35,18 @@ const Location = () => {
       },
       body: JSON.stringify(reqBody),
     })
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        } else {
-          return Promise.reject(new Error(resp.json()));
-        }
+      .then((resp) => (resp.ok ? resp.json() : Promise.reject(resp.json())))
+      .then((data) => {
+        setRegions([...regions, data.region]);
       })
-      .then(
-        (data) => {
-          setRegions([...regions, data.region]);
-        },
-        (err) => {
-          throw new Error(err);
-        }
-      )
-      .then(null, (err) => {
-        console.log(err);
-      })
-      .catch((err) => {
-        console.log(err);
-        // console.log(await err);
-        // alert(err);
+      .catch(async (err) => {
+        const resp = await err;
+        alert(resp.Message);
       });
+  }
+
+  function onUpdateData (id, name) {
+    
   }
 
   return (
@@ -65,13 +55,13 @@ const Location = () => {
         <button className="add_region_btn" onClick={() => setIsOpen(true)}>
           Add region
         </button>
-        <Modal
+        <ModalAdd
           open={isOpen}
           onClose={() => setIsOpen(false)}
           onSetData={onSetData}
         >
           children
-        </Modal>
+        </ModalAdd>
       </div>
       <div className="body">
         {regions.map((region) => (

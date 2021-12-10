@@ -5,11 +5,10 @@ import { useForm } from "react-hook-form";
 import { createPortal } from "react-dom";
 
 //ADD - EDIT
-const Modal = ({ open, children, onClose, onSetData }) => {
+const ModalAdd = ({ open, children, onClose, onSetData }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
     reset({ input: "" });
     onSetData(data);
     onClose();
@@ -19,8 +18,8 @@ const Modal = ({ open, children, onClose, onSetData }) => {
     return (
       <div className="modalForm">
         <form onSubmit={handleSubmit(onSubmit)}>
+          <h1>{children}</h1>
           <label htmlFor="input">
-            {children}
             <input type="text" id="input" {...register("input")} />
           </label>
           <input type="submit" value="SEND" />
@@ -33,4 +32,4 @@ const Modal = ({ open, children, onClose, onSetData }) => {
   }
 };
 
-export default Modal;
+export default ModalAdd;

@@ -1,34 +1,32 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
+import { useForm } from "react-hook-form";
+import Modal from "../../modals/add/Modal.Add";
 import City from "../city/City";
-import FormModal from "../../modals/form/ModalAdd";
+import FormModal from "../../modals/add/Modal.Add";
 
 const Country = (props) => {
   const id = props.Country._id;
-  console.log(id)
   const [toggleForm, setToggleForm] = useState(false);
   const [cities, setCities] = useState([]);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const getCities = (CountryId) => {
       fetch(`http://localhost:3050/location/city/${CountryId}`)
         .then((resp) => resp.json())
         .then((data) => {
-          console.log(data)
           setCities(data);
         });
     };
     getCities(id);
   }, []);
 
-  const modalStatus = () => {
-    return setToggleForm(!toggleForm);
-  };
-
-  const addData = (name) => {
-    let reqBody = {
-      name: name,
-      countryId: id,
+  // Modularize
+  function onSetData(data) {
+    const reqBody = {
+      name: data.input,
+      countryId: props.Country._id,
     };
     fetch("http://localhost:3050/location/city/", {
       method: "POST",
@@ -37,20 +35,15 @@ const Country = (props) => {
       },
       body: JSON.stringify(reqBody),
     })
-      .then((resp) => resp.json())
+      .then((resp) => (resp.ok ? resp.json() : Promise.reject(resp.json())))
       .then((data) => {
-        console.log("Data", data);
-        let newRegion = {
-          id: data.lastId++,
-          name: name,
-        };
-        console.log("City", data);
-        setCities([...cities, newRegion]);
+        setCities([...cities, data.city]);
       })
-      .catch((err) => {
-        console.log("ERROR____------", err);
+      .catch(async (err) => {
+        const errorMessage = await err;
+        alert(errorMessage.Message);
       });
-  };
+  }
 
   const editCountry = (id) => {
     alert(`Edit. Country id: : ${id}`);
@@ -58,32 +51,32 @@ const Country = (props) => {
 
   return (
     <div className="country">
+
       <div className="country-header">
         <h2>{props.Country.name}</h2>
-        <Button
+
+        {/* <Button
           text1="Edit"
           modalStatus={modalStatus}
           onToggleFunction={editCountry}
           id={id}
-        />
-        <Button text1="Delete" onToggleFunction={modalStatus} />
-        <Button
-          additional_class="btnAdd"
-          text1="Add City"
-          onToggleFunction={modalStatus}
-          //   id={id}
-        />
-        <FormModal
-          showModal={toggleForm}
-          title="Add City"
-          modalStatus={modalStatus}
-          onAdd={addData}
-        />
+        /> */}
+        <Button text1="Delete" />
+        <button className="btnAdd" onClick={() => setIsOpen(true)}>
+          Add city
+        </button>
+        <Modal
+          open={isOpen}
+          onClose={() => setIsOpen(false)}
+          onSetData={onSetData}
+        >
+          children
+        </Modal>
       </div>
       <div className="country-body">
-        {/* {cities.map((city) => (
+        {cities.map((city) => (
           <City key={city._id} city={city} />
-        ))} */}
+        ))}
       </div>
     </div>
   );

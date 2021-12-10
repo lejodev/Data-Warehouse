@@ -35,7 +35,7 @@ router.post("/", async (req, res) => {
       }
     });
   } else {
-    res.status(404).json({ Warinig: "Region already exists" });
+    res.status(404).json({ Message: "Region already exists" });
   }
 });
 
@@ -46,6 +46,7 @@ router.patch("/:regionId", async (req, res) => {
     if (err) {
       res.status(400).json({ Error: err });
     } else {
+      console.log(doc)
       res.status(200).json({ Success: "Region updated successfully" });
     }
   });

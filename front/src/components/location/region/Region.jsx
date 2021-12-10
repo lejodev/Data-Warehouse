@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
 import Country from "../country/Country";
-import Modal from "../../modals/form/ModalAdd";
+import ModalAdd from "../../modals/add/Modal.Add";
+import ModalUpdate from "../../modals/update/Modal.Update";
+import { useForm } from "react-hook-form";
 
 const Region = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+  const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [countries, setCountries] = useState([]);
   const id = props.Region._id;
 
@@ -19,10 +22,11 @@ const Region = (props) => {
     getcountries(id);
   }, []);
 
-  const addData = (name) => {
-    let reqBody = {
-      name: name,
-      regionId: id,
+  // Modularize
+  function onSetData(data) {
+    const reqBody = {
+      name: data.input,
+      regionId: props.Region._id,
     };
     fetch("http://localhost:3050/location/country", {
       method: "POST",
@@ -31,41 +35,60 @@ const Region = (props) => {
       },
       body: JSON.stringify(reqBody),
     })
-      .then((resp) => resp.json())
+      .then((resp) => (resp.ok ? resp.json() : Promise.reject(resp.json())))
       .then((data) => {
-        // let newCountry = {
-        //   id: data.lastId++,
-        //   name: name,
-        // };
-        // setCountries([...countries, newCountry]);
+        setCountries([...countries, data.country]);
       })
-      .catch((err) => {});
-  };
-  const addCountry = (id) => {
-    alert(id);
-  };
+      .catch(async (err) => {
+        const resp = await err;
+        alert(resp.Message);
+      });
+  }
 
-  const editRegion = (id) => {
-    alert(`id ${id}`);
-  };
-
-  const deleteRegion = (id) => {
-    alert(`Delete ${id}`);
-  };
+  // Modularize
+  function onUpdate(data) {
+    // alert(props.Region._id)
+    const id = props.Region._id;
+    const reqBody = {
+      name: data.input,
+    };
+    fetch(`http://localhost:3050/location/region/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    }).then((resp) => {
+      console.log(resp);
+      setCountries([...countries, reqBody]);
+    });
+  }
 
   return (
     <div className="region">
       <div className="region-header">
         <h2>{props.Region.name}</h2>
-        <Button text1="Edit" onToggleFunction={editRegion} id={id} />
-        <Button text1="Delete" onToggleFunction={deleteRegion} id={id} />
-        <Button
-          additional_class="btnAdd"
-          text1="Add Country"
-          id={id}
-          onClick={() => {alert("sdfg")}}
-        />
-        <Modal open={isOpen}>children</Modal>
+        <button className="btnUpdate" onClick={() => setIsOpenUpdate(true)}>
+          Edit
+        </button>
+        <ModalUpdate
+          open={isOpenUpdate}
+          onClose={() => setIsOpenUpdate(false)}
+          onUpdate={onUpdate}
+        >
+          UPDATE
+        </ModalUpdate>
+        <Button text1="Delete" />
+        <button className="btnAdd" onClick={() => setIsOpenAdd(true)}>
+          Add Country
+        </button>
+        <ModalAdd
+          open={isOpenAdd}
+          onClose={() => setIsOpenAdd(false)}
+          onSetData={onSetData}
+        >
+          children
+        </ModalAdd>
       </div>
       <div className="region-body">
         {countries.map((country) => (

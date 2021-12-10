@@ -4,20 +4,20 @@ const cityExists = require("../../utils/utils.common.queries").cityExists;
 
 const router = express.Router();
 
-router.get("/:cityId", async (req, res) => {
-  const id = req.params.cityId;
-  citySchema.findById(id, (err, doc) => {
-    if (err && null) {
-      res.status(400).json({ Error: err });
-    } else if (doc != null) {
-      doc.lenght == 0
-        ? res.status(404).json({ Message: "No cuntry" })
-        : res.status(200).json(doc);
-    } else {
-      res.status(400).json({ Error: "Null response" });
-    }
-  });
-});
+// router.get("/:cityId", async (req, res) => {
+//   const id = req.params.cityId;
+//   citySchema.findById(id, (err, doc) => {
+//     if (err && null) {
+//       res.status(400).json({ Error: err });
+//     } else if (doc != null) {
+//       doc.lenght == 0
+//         ? res.status(404).json({ Message: "No cuntry" })
+//         : res.status(200).json(doc);
+//     } else {
+//       res.status(400).json({ Error: "Null response" });
+//     }
+//   });
+// });
 
 router.get("/:countryId", async (req, res) => {
   const countryId = req.params.countryId;
@@ -39,11 +39,11 @@ router.post("/", async (req, res) => {
       if (err) {
         res.status(400).json({ Error: err });
       } else {
-        res.status(200).json({ Success: "City successfully added" });
+        res.status(200).json({ Success: "City successfully added", city });
       }
     });
   } else {
-    res.status(400).json({ Error: "City already exists" });
+    res.status(400).json({ Message: "City already exists" });
   }
 });
 
