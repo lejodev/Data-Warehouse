@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
-import { useForm } from "react-hook-form";
-import Modal from "../../modals/add/Modal.Add";
+import ModalAdd from "../../modals/add/Modal.Add";
 import City from "../city/City";
-import FormModal from "../../modals/add/Modal.Add";
+import ModalUpdate from "../../modals/update/Modal.Update";
 
 const Country = (props) => {
   const id = props.Country._id;
-  const [toggleForm, setToggleForm] = useState(false);
   const [cities, setCities] = useState([]);
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpenAdd, setIsOpenAdd] = useState(false);
+  const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+  const [name, setName] = useState(props.Country.name); //Common
 
   useEffect(() => {
     const getCities = (CountryId) => {
@@ -45,37 +45,67 @@ const Country = (props) => {
       });
   }
 
-  const editCountry = (id) => {
-    alert(`Edit. Country id: : ${id}`);
-  };
+  // Modularize
+  function onUpdate(data) {
+    const id = props.Country._id;
+    const reqBody = {
+      name: data.input,
+    };
+    fetch(`http://localhost:3050/location/country/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(reqBody),
+    })
+      .then((resp) =>
+        resp.ok ? resp.json() : Promise.reject("Can not update")
+      )
+      .then((_) => {
+        setName(data.input);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  function onDeleteCity(city) {
+    const deletedCity = cities.indexOf(city);
+    cities.splice(deletedCity, 1);
+    // var updatedListOfCities =
+    console.log(cities);
+    setCities(cities);
+  }
 
   return (
     <div className="country">
-
       <div className="country-header">
-        <h2>{props.Country.name}</h2>
-
-        {/* <Button
-          text1="Edit"
-          modalStatus={modalStatus}
-          onToggleFunction={editCountry}
-          id={id}
-        /> */}
+        <h2>{name}</h2>
+        <button id={id} onClick={() => setIsOpenUpdate(true)}>
+          Edit
+        </button>
+        <ModalUpdate
+          open={isOpenUpdate}
+          onClose={() => setIsOpenUpdate(false)}
+          onUpdate={onUpdate}
+        >
+          UPDATE
+        </ModalUpdate>
         <Button text1="Delete" />
-        <button className="btnAdd" onClick={() => setIsOpen(true)}>
+        <button className="btnAdd" onClick={() => setIsOpenAdd(true)}>
           Add city
         </button>
-        <Modal
-          open={isOpen}
-          onClose={() => setIsOpen(false)}
+        <ModalAdd
+          open={isOpenAdd}
+          onClose={() => setIsOpenAdd(false)}
           onSetData={onSetData}
         >
           children
-        </Modal>
+        </ModalAdd>
       </div>
       <div className="country-body">
         {cities.map((city) => (
-          <City key={city._id} city={city} />
+          <City key={city._id} City={city} onDeleteCity={onDeleteCity} />
         ))}
       </div>
     </div>

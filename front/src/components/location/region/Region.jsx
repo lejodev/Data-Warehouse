@@ -9,6 +9,7 @@ const Region = (props) => {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [countries, setCountries] = useState([]);
+  const [name, setName] = useState(props.Region.name); //Common
   const id = props.Region._id;
 
   useEffect(() => {
@@ -47,7 +48,6 @@ const Region = (props) => {
 
   // Modularize
   function onUpdate(data) {
-    // alert(props.Region._id)
     const id = props.Region._id;
     const reqBody = {
       name: data.input,
@@ -58,16 +58,22 @@ const Region = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(reqBody),
-    }).then((resp) => {
-      console.log(resp);
-      setCountries([...countries, reqBody]);
-    });
+    })
+      .then((resp) =>
+        resp.ok ? resp.json() : Promise.reject("Can not update")
+      )
+      .then((_) => {
+        setName(data.input);
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
   return (
     <div className="region">
       <div className="region-header">
-        <h2>{props.Region.name}</h2>
+        <h2>{name}</h2>
         <button className="btnUpdate" onClick={() => setIsOpenUpdate(true)}>
           Edit
         </button>
