@@ -10,6 +10,7 @@ const Country = (props) => {
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [name, setName] = useState(props.Country.name); //Common
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     const getCities = (CountryId) => {
@@ -69,15 +70,19 @@ const Country = (props) => {
       });
   }
 
-  function onDeleteCity(city) {
-    const deletedCity = cities.indexOf(city);
-    cities.splice(deletedCity, 1);
-    // var updatedListOfCities =
-    console.log(cities);
-    setCities(cities);
+  function deleteCountry() {
+    fetch(`http://localhost:3050/location/country/${id}`, {
+      method: "DELETE",
+    })
+      .then((resp) =>
+        resp.ok ? setDeleted(true) : Promise.reject("Counldn't delete country")
+      )
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
-  return (
+  return deleted ? null : (
     <div className="country">
       <div className="country-header">
         <h2>{name}</h2>
@@ -88,10 +93,11 @@ const Country = (props) => {
           open={isOpenUpdate}
           onClose={() => setIsOpenUpdate(false)}
           onUpdate={onUpdate}
+          defaultText={name}
         >
           UPDATE
         </ModalUpdate>
-        <Button text1="Delete" />
+        <button onClick={() => deleteCountry()}>Delete</button>
         <button className="btnAdd" onClick={() => setIsOpenAdd(true)}>
           Add city
         </button>
@@ -105,7 +111,7 @@ const Country = (props) => {
       </div>
       <div className="country-body">
         {cities.map((city) => (
-          <City key={city._id} City={city} onDeleteCity={onDeleteCity} />
+          <City key={city._id} City={city} />
         ))}
       </div>
     </div>

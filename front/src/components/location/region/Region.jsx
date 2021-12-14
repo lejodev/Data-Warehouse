@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Button from "../../buttons/Button";
 import Country from "../country/Country";
 import ModalAdd from "../../modals/add/Modal.Add";
 import ModalUpdate from "../../modals/update/Modal.Update";
-import { useForm } from "react-hook-form";
 
 const Region = (props) => {
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
   const [isOpenAdd, setIsOpenAdd] = useState(false);
   const [countries, setCountries] = useState([]);
-  const [name, setName] = useState(props.Region.name); //Common
+  const [name, setName] = useState(props.Region.name); // Common
+  const [deleted, setDeleted] = useState(false); // Common
   const id = props.Region._id;
 
   useEffect(() => {
@@ -70,7 +69,19 @@ const Region = (props) => {
       });
   }
 
-  return (
+  function deleteRegion() {
+    fetch(`http://localhost:3050/location/region/${id}`, {
+      method: "DELETE",
+    })
+      .then((resp) =>
+        resp.ok ? setDeleted(true) : Promise.reject("Couldn't delete region")
+      )
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  return deleted ? null : (
     <div className="region">
       <div className="region-header">
         <h2>{name}</h2>
@@ -81,10 +92,11 @@ const Region = (props) => {
           open={isOpenUpdate}
           onClose={() => setIsOpenUpdate(false)}
           onUpdate={onUpdate}
+          defaultText={name}
         >
           UPDATE
         </ModalUpdate>
-        <Button text1="Delete" />
+        <button onClick={() => deleteRegion()}> Delete</button>
         <button className="btnAdd" onClick={() => setIsOpenAdd(true)}>
           Add Country
         </button>

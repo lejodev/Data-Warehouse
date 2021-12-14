@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./_form.scss";
+import "../_form.scss";
 import { useForm } from "react-hook-form";
 
 import { createPortal } from "react-dom";

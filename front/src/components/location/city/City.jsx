@@ -5,6 +5,7 @@ import ModalUpdate from "../../modals/update/Modal.Update";
 const City = (props) => {
   const [name, setName] = useState(props.City.name); //Common
   const [isOpenUpdate, setIsOpenUpdate] = useState(false);
+  const [deleted, setDeleted] = useState(false);
 
   // Modularize
   const id = props.City._id;
@@ -30,7 +31,19 @@ const City = (props) => {
       });
   }
 
-  return (
+  function deleteCity() {
+    fetch(`http://localhost:3050/location/city/${id}`, {
+      method: "DELETE",
+    })
+      .then((resp) => {
+        resp.ok ? setDeleted(true) : Promise.reject("Couldn't delete");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  return deleted ? null : (
     <div className="city">
       <div className="city-header">
         <h2>{name}</h2>
@@ -39,14 +52,9 @@ const City = (props) => {
           open={isOpenUpdate}
           onClose={() => setIsOpenUpdate(false)}
           onUpdate={onUpdate}
+          defaultText={name}
         ></ModalUpdate>
-        <button
-          onClick={() => {
-            props.onDeleteCity(props.City);
-          }}
-        >
-          Delete
-        </button>
+        <button onClick={() => deleteCity()}>Delete</button>
       </div>
     </div>
   );

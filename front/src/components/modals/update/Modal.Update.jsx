@@ -1,7 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
-const ModalUpdate = ({ open, children, onClose, onUpdate }) => {
+const ModalUpdate = ({ open, children, onClose, onUpdate, defaultText }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
@@ -17,7 +17,7 @@ const ModalUpdate = ({ open, children, onClose, onUpdate }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1>{children}</h1>
           <label htmlFor="input">
-            <input type="text" id="input" {...register("input")} />
+            <input type="text" defaultValue={defaultText} id="input" {...register("input")} />
           </label>
           <input type="submit" value="SEND" />
         </form>
