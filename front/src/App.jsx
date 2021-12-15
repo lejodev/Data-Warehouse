@@ -5,6 +5,7 @@ import SignUp from "./components/user/createUser/User";
 import Login from "./components/user/login/Login";
 import ManageContacts from "./components/contacts/ManageContacts";
 import Location from "./components/location/Location";
+import Companies from "./components/companies/Companies";
 
 import ReactDOM from "react-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -25,7 +26,7 @@ function App() {
         <Route path="/contacts" element={<ManageContacts />} />
         <Route path="/signUp" element={<SignUp />} />
         <Route path="/location" element={<Location />} />
-        {/* <Route path="/companies" element={<Companies />} /> */}
+        <Route path="/companies" element={<Companies />} />
       </Routes>
     </BrowserRouter>
   );

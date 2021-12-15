@@ -10,7 +10,9 @@ router.get("/", async (req, res) => {
     .populate("city")
     .then((companies) => {
       const resp = companies.map((rawCompany) => {
+        console.log(rawCompany);
         return {
+          id: rawCompany._id,
           name: rawCompany.name,
           city: rawCompany.city.name,
           address: rawCompany.address,
@@ -21,6 +23,7 @@ router.get("/", async (req, res) => {
       res.status(200).json(resp);
     })
     .catch((err) => {
+      console.log(err);
       res.status(400).json({ Error: err });
     });
 });
