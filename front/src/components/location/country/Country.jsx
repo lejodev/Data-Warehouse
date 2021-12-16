@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Button from "../../buttons/Button";
-import ModalAdd from "../../modals/add/Modal.Add";
+import ModalAdd from "../../modals/add/ModalAddLocation";
 import City from "../city/City";
 import ModalUpdate from "../../modals/update/Modal.Update";
 

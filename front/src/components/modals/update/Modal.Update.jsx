@@ -17,7 +17,12 @@ const ModalUpdate = ({ open, children, onClose, onUpdate, defaultText }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1>{children}</h1>
           <label htmlFor="input">
-            <input type="text" defaultValue={defaultText} id="input" {...register("input")} />
+            <input
+              type="text"
+              defaultValue={defaultText}
+              id="input"
+              {...register("input", { required: true })}
+            />
           </label>
           <input type="submit" value="SEND" />
         </form>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Country from "../country/Country";
-import ModalAdd from "../../modals/add/Modal.Add";
+import ModalAdd from "../../modals/add/ModalAddLocation";
 import ModalUpdate from "../../modals/update/Modal.Update";
 
 const Region = (props) => {

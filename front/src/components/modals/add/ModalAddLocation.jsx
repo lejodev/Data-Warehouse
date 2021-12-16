@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../_form.scss";
+import "../modalStyles/_form.scss";
 import { useForm } from "react-hook-form";
 
 import { createPortal } from "react-dom";
@@ -20,7 +20,11 @@ const ModalAdd = ({ open, children, onClose, onSetData }) => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <h1>{children}</h1>
           <label htmlFor="input">
-            <input type="text" id="input" {...register("input")} />
+            <input
+              type="text"
+              id="input"
+              {...register("input", { required: true })}
+            />
           </label>
           <input type="submit" value="SEND" />
         </form>

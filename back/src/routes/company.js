@@ -10,9 +10,8 @@ router.get("/", async (req, res) => {
     .populate("city")
     .then((companies) => {
       const resp = companies.map((rawCompany) => {
-        console.log(rawCompany);
         return {
-          id: rawCompany._id,
+          _id: rawCompany._id,
           name: rawCompany.name,
           city: rawCompany.city.name,
           address: rawCompany.address,
@@ -23,7 +22,6 @@ router.get("/", async (req, res) => {
       res.status(200).json(resp);
     })
     .catch((err) => {
-      console.log(err);
       res.status(400).json({ Error: err });
     });
 });
@@ -32,21 +30,22 @@ router.post("/:cityId", async (req, res) => {
   const { name, address, email, phone } = req.body;
   const cityId = req.params.cityId;
   const exists = await companyExists(name);
-  console.log(exists);
   if (!exists) {
     const company = new companySquema({
       name: name,
+      city: cityId,
       address: address,
       email: email,
       phone: phone,
-      city: cityId,
     });
 
     company.save((err, doc) => {
       if (err) {
         res.status(400).json({ error: err });
       } else {
-        res.status(200).json({ Success: "Company successfully added" });
+        res
+          .status(200)
+          .json({ Success: "Company successfully added", company });
       }
     });
   } else {

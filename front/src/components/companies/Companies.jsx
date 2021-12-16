@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Company from "./company/Company";
-import ModalAdd from "../modals/add/Modal.Add";
+import ModalAddCompany from "../modals/add/ModalAddCompany";
 import "./_companies.scss";
 
 const Companies = (props) => {
   const [companies, setCompanies] = useState([]);
   const [isOpenAddCompany, setIsOpenAddCompany] = useState(false);
-  const [isOpenUpdateCompany, setIsOpenUpdateCompany] = useState(false);
 
   // === TASK ==
   // Make a new modal (Add company)
@@ -42,22 +41,6 @@ const Companies = (props) => {
     const reqBody = {
       name: data.input,
     };
-    fetch(`http://localhost:3050/company/${id}`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(reqBody),
-    })
-      .then((resp) =>
-        resp.ok ? resp.json() : Promise.reject("Can not update")
-      )
-      .then((_) => {
-        // setName(data.input); // Fix
-      })
-      .catch((err) => {
-        alert(err);
-      });
   }
 
   useEffect(() => {
@@ -66,6 +49,7 @@ const Companies = (props) => {
         .then((resp) => (resp.ok ? resp.json() : Promise.reject(resp.json())))
         .then((companies) => {
           setCompanies(companies);
+          console.log(companies)
         })
         .catch(async (err) => {
           await err;
@@ -75,7 +59,32 @@ const Companies = (props) => {
     getCompanies();
   }, []);
 
-  function addCOmpany() {}
+  function addCompany(data) {
+    console.log(data);
+    const reqBody = JSON.stringify(data);
+    console.log(reqBody);
+    fetch(`http://localhost:3050/company/${data.city}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((resp) =>
+        resp.ok ? resp.json() : Promise.reject("Can not update")
+      )
+      .then((resp) => {
+        console.log(resp);
+        setCompanies([...companies, resp.company]);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  function onClose() {
+    return;
+  }
 
   return (
     <div className="companies">
@@ -85,6 +94,11 @@ const Companies = (props) => {
           <button className="btnAdd" onClick={() => setIsOpenAddCompany(true)}>
             Add
           </button>
+          <ModalAddCompany
+            onAddOpen={isOpenAddCompany}
+            onClose={() => setIsOpenAddCompany(false)}
+            onAddCompany={addCompany}
+          />
         </div>
         <section className="companies-section-container">
           <ul className="companies-section-header">
@@ -95,7 +109,7 @@ const Companies = (props) => {
           </ul>
           <div className="companies-section-list-container">
             {companies.map((company) => (
-              <Company key={company.id} company={company} />
+              <Company key={company._id} company={company} />
             ))}
           </div>
         </section>

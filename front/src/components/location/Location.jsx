@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Region from "./region/Region";
 import "./_location.scss";
-import ModalAdd from "../modals/add/Modal.Add";
+import ModalAdd from "../modals/add/ModalAddLocation";
 import Button from "../buttons/Button";
 
 const Location = () => {

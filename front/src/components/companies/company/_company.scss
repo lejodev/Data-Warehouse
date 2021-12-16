@@ -1,7 +1,16 @@
 .company {
   padding-left: 0;
   width: 100%;
+  // height: ;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr) 0.4fr;
+  align-items: center;
+  .actions {
+    .icon {
+      color: #1D72C2;
+      font-size: x-large;
+      cursor: pointer;
+    }
+  }
 }

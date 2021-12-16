@@ -1,0 +1,13 @@
+.form-company-container {
+    width: 50vw;
+    height: 30vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: khaki;
+  .form-company {
+    display: flex;
+    flex-flow: column;
+  }
+}
