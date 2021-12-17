@@ -7,11 +7,6 @@ const Companies = (props) => {
   const [companies, setCompanies] = useState([]);
   const [isOpenAddCompany, setIsOpenAddCompany] = useState(false);
 
-  // === TASK ==
-  // Make a new modal (Add company)
-  // Modify the setCompany and updateCompany methods
-  // Finish CRUD
-
   // Modularize
   function onSetData(data) {
     const reqBody = {
@@ -60,7 +55,6 @@ const Companies = (props) => {
   }, []);
 
   function addCompany(data) {
-    console.log(data);
     const reqBody = JSON.stringify(data);
     console.log(reqBody);
     fetch(`http://localhost:3050/company/${data.city}`, {
@@ -74,7 +68,7 @@ const Companies = (props) => {
         resp.ok ? resp.json() : Promise.reject("Can not update")
       )
       .then((resp) => {
-        console.log(resp);
+        resp.company.city = data.cityName;
         setCompanies([...companies, resp.company]);
       })
       .catch((err) => {

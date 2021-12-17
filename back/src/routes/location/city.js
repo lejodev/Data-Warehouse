@@ -4,20 +4,15 @@ const cityExists = require("../../utils/utils.common.queries").cityExists;
 
 const router = express.Router();
 
-// router.get("/:cityId", async (req, res) => {
-//   const id = req.params.cityId;
-//   citySchema.findById(id, (err, doc) => {
-//     if (err && null) {
-//       res.status(400).json({ Error: err });
-//     } else if (doc != null) {
-//       doc.lenght == 0
-//         ? res.status(404).json({ Message: "No cuntry" })
-//         : res.status(200).json(doc);
-//     } else {
-//       res.status(400).json({ Error: "Null response" });
-//     }
-//   });
-// });
+router.get("/", async (req, res) => {
+  citySchema.find((err, doc) => {
+    if (err) {
+      res.status(400).json({ Error: err });
+    } else {
+      res.status(200).json(doc);
+    }
+  });
+});
 
 router.get("/:countryId", async (req, res) => {
   const countryId = req.params.countryId;

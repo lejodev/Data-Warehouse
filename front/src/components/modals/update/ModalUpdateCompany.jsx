@@ -1,11 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const ModalUpdateCompany = ({ onUpdateOpen, onClose, company }) => {
+const ModalUpdateCompany = ({ onUpdateOpen, onUpdate, onClose, company }) => {
   const { register, handleSubmit, reset } = useForm();
 
+  const [cities, setCities] = useState([]);
+
+  useEffect(() => {
+    function getCities() {
+      fetch("http://localhost:3050/location/city/")
+        .then((resp) =>
+          resp.ok ? resp.json() : Promise.reject("Can't update company")
+        )
+        .then((cities) => {
+          console.log(cities);
+          setCities(cities);
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
+    getCities();
+  }, []);
+
   function onSubmit(data) {
-    console.log(data);
+    const getCityName = cities.filter((city) => city._id == data.city);
+    data.cityName = getCityName[0].name
+    onUpdate(data);
+    reset();
+    onClose();
   }
 
   if (onUpdateOpen) {
@@ -22,12 +45,17 @@ const ModalUpdateCompany = ({ onUpdateOpen, onClose, company }) => {
             />
           </label>
           <label htmlFor="city">
-            <input
-              type="text"
-              id="city"
-              defaultValue={company.city}
-              {...register("city", { required: true })}
-            />
+            CITY
+            <select id="city" {...register("city", { required: true })}>
+              {/* <option value=""  selected>
+                Select a city
+              </option> */}
+              {cities.map((city) => (
+                <option value={city._id} key={city._id}>
+                  {city.name}
+                </option>
+              ))}
+            </select>
           </label>
           <label htmlFor="address">
             <input
