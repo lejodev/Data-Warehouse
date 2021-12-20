@@ -44,7 +44,7 @@ const Companies = (props) => {
         .then((resp) => (resp.ok ? resp.json() : Promise.reject(resp.json())))
         .then((companies) => {
           setCompanies(companies);
-          console.log(companies)
+          console.log(companies);
         })
         .catch(async (err) => {
           await err;
@@ -75,11 +75,6 @@ const Companies = (props) => {
         alert(err);
       });
   }
-
-  function onClose() {
-    return;
-  }
-
   return (
     <div className="companies">
       <div className="main-container">

@@ -5,6 +5,7 @@ const ModalUpdateCompany = ({ onUpdateOpen, onUpdate, onClose, company }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const [cities, setCities] = useState([]);
+  const [currentCity, setcurrentCity] = useState({});
 
   useEffect(() => {
     function getCities() {
@@ -14,7 +15,9 @@ const ModalUpdateCompany = ({ onUpdateOpen, onUpdate, onClose, company }) => {
         )
         .then((cities) => {
           console.log(cities);
+          console.log(company);
           setCities(cities);
+          setcurrentCity(cities.filter((city) => city.name == company.city));
         })
         .catch((err) => {
           alert(err);
@@ -25,7 +28,7 @@ const ModalUpdateCompany = ({ onUpdateOpen, onUpdate, onClose, company }) => {
 
   function onSubmit(data) {
     const getCityName = cities.filter((city) => city._id == data.city);
-    data.cityName = getCityName[0].name
+    data.cityName = getCityName[0].name;
     onUpdate(data);
     reset();
     onClose();
@@ -47,14 +50,17 @@ const ModalUpdateCompany = ({ onUpdateOpen, onUpdate, onClose, company }) => {
           <label htmlFor="city">
             CITY
             <select id="city" {...register("city", { required: true })}>
-              {/* <option value=""  selected>
-                Select a city
-              </option> */}
-              {cities.map((city) => (
-                <option value={city._id} key={city._id}>
-                  {city.name}
-                </option>
-              ))}
+              {cities.map((city) =>
+                city.name == company.city ? (
+                  <option value={city._id} key={city._id} selected>
+                    {city.name}
+                  </option>
+                ) : (
+                  <option value={city._id} key={city._id}>
+                    {city.name}
+                  </option>
+                )
+              )}
             </select>
           </label>
           <label htmlFor="address">

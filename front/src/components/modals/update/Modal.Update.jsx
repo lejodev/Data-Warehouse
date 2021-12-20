@@ -6,7 +6,7 @@ const ModalUpdate = ({ open, children, onClose, onUpdate, defaultText }) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    reset({ input: "" });
+    // reset({ input: "" });
     onUpdate(data);
     onClose();
   };

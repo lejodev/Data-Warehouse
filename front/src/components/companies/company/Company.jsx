@@ -9,12 +9,12 @@ const Company = (props) => {
   const [isOpenUpdateCompany, setIsOpenUpdateCompany] = useState(false);
   const [company, setCompany] = useState({});
 
-  useEffect(() => {
-    function renderCompany() {
-      setCompany(props.company);
-    }
-    renderCompany();
-  }, []);
+  // useEffect(() => {
+  //   function renderCompany() {
+  //     setCompany(props.company);
+  //   }
+  //   renderCompany();
+  // }, []);
 
   function onDeleteCompany() {
     fetch(`http://localhost:3050/company/${id}`, {
@@ -30,29 +30,38 @@ const Company = (props) => {
   }
 
   function onUpdateCompany(data) {
-    console.log(data)
-    // let reqBody = JSON.stringify(data);
-    // fetch(`http://localhost:3050/company/${company._id}`, {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   method: "PATCH",
-    //   body: reqBody,
-    // })
-    //   .then((resp) => {
-    //     resp.ok ? setCompany(data) : Promise.reject("Can't update company");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //     alert(err);
-    //   });
+    console.log(data);
+    let reqBody = JSON.stringify(data);
+    console.log(data);
+    fetch(`http://localhost:3050/company/${props.company._id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "PATCH",
+      body: reqBody,
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        // if (resp.status == 200) {
+        console.log(resp);
+        // } else {
+        //   throw new Error(resp);
+        // }
+        // setCity(cities.filter((city) => city.name == company.city));
+        data.city = data.cityName;
+        setCompany(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        alert(err);
+      });
   }
 
   return display ? (
     <ul className="company">
-      <li>{company.name}</li>
-      <li>{company.city}</li>
-      <li>{company.address}</li>
+      <li>{props.company.name}</li>
+      <li>{props.company.city}</li>
+      <li>{props.company.address}</li>
       <li className="actions">
         <MdEdit
           className="icon edit"
