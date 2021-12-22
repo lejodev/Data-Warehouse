@@ -7,7 +7,7 @@ const Company = (props) => {
   const id = props.company._id;
   const [display, setDisplay] = useState(true);
   const [isOpenUpdateCompany, setIsOpenUpdateCompany] = useState(false);
-  const [company, setCompany] = useState({});
+  const [company, setCompany] = useState(props.company);
 
   // useEffect(() => {
   //   function renderCompany() {
@@ -30,26 +30,20 @@ const Company = (props) => {
   }
 
   function onUpdateCompany(data) {
-    console.log(data);
-    let reqBody = JSON.stringify(data);
-    console.log(data);
+    const reqBody = data;
+    console.log(reqBody)
     fetch(`http://localhost:3050/company/${props.company._id}`, {
       headers: {
         "Content-Type": "application/json",
       },
       method: "PATCH",
-      body: reqBody,
+      body: JSON.stringify(reqBody),
     })
       .then((resp) => resp.json())
       .then((resp) => {
-        // if (resp.status == 200) {
-        console.log(resp);
-        // } else {
-        //   throw new Error(resp);
-        // }
-        // setCity(cities.filter((city) => city.name == company.city));
         data.city = data.cityName;
         setCompany(data);
+        console.log(company)
       })
       .catch((err) => {
         console.log(err);
@@ -59,9 +53,9 @@ const Company = (props) => {
 
   return display ? (
     <ul className="company">
-      <li>{props.company.name}</li>
-      <li>{props.company.city}</li>
-      <li>{props.company.address}</li>
+      <li>{company.name}</li>
+      <li>{company.city}</li>
+      <li>{company.address}</li>
       <li className="actions">
         <MdEdit
           className="icon edit"
@@ -73,7 +67,7 @@ const Company = (props) => {
         <ModalUpdateCompany
           onUpdateOpen={isOpenUpdateCompany}
           onClose={() => setIsOpenUpdateCompany(false)}
-          company={props.company}
+          company={company}
           onUpdate={onUpdateCompany}
         />
         <MdClear className="icon delete" onClick={() => onDeleteCompany()} />

@@ -1,0 +1,44 @@
+.contacts-general-container {
+  margin: 8vh 8vh 0 8vh;
+  display: grid;
+  grid-template-areas:
+    "search import-export"
+    "contacts contacts";
+
+  .search,
+  .export-import {
+    height: 20vh;
+  }
+  .search {
+    background-color: aquamarine;
+    grid-area: search;
+  }
+  .export-import {
+    background-color: burlywood;
+    grid-area: import-export;
+  }
+  .contacts-table {
+    background-color: darkcyan;
+    grid-area: contacts;
+    min-height: 60vh;
+    .contacts-table-header {
+      .contacts-table-header-menu {
+        display: flex;
+        flex-flow: row;
+        padding-left: 0;
+        justify-content: space-between;
+        list-style: none;
+      }
+    }
+    .contacts-table-body {
+      .contact {
+        .contact-row {
+          display: flex;
+          list-style: none;
+          justify-content: space-between;
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}

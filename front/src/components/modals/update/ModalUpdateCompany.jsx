@@ -51,15 +51,15 @@ const ModalUpdateCompany = ({ onUpdateOpen, onUpdate, onClose, company }) => {
             CITY
             <select id="city" {...register("city", { required: true })}>
               {cities.map((city) =>
-                city.name == company.city ? (
-                  <option value={city._id} key={city._id} selected>
-                    {city.name}
-                  </option>
-                ) : (
+                // city.name == company.city ? (
+                //   <option value={city._id} key={city._id} selected>
+                //     {city.name}
+                //   </option>
+                // ) : (
                   <option value={city._id} key={city._id}>
                     {city.name}
                   </option>
-                )
+                // )
               )}
             </select>
           </label>

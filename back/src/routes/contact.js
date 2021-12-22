@@ -21,6 +21,7 @@ router.get("/", async (req, res) => {
           city: contact.city.name,
           address: contact.address,
           interest: contact.interest,
+          _id: contact._id
         };
       });
       res.status(200).json(contactsList);
