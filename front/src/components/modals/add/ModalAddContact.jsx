@@ -2,11 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import "../modalStyles/_modalContacts.scss";
 
-const ModalAddContact = ({ isOpen, onClose }) => {
-  const [regionInitialValue, setRegionInitialValue] = useState(); //////
+const ModalAddContact = ({ isOpen, onClose, onAddContact }) => {
   const [regions, setRegions] = useState([]);
   const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
+  const [companies, setCompanies] = useState([]);
 
   var currentRegion;
   var currentCountry;
@@ -20,22 +20,19 @@ const ModalAddContact = ({ isOpen, onClose }) => {
       let regions = await getRegions.json();
       setRegions(regions);
     }
+    async function getCompanies() {
+      let getCompanies = await fetch("http://localhost:3050/company");
+      let companies = await getCompanies.json();
+      setCompanies(companies);
+    }
     setLocation();
+    getCompanies();
     // getCountries();
   }, []);
-
-  async function getCountries(regionId) {
-    getCountries = await fetch(
-      `http://localhost:3050/location/country/${regionId}`
-    );
-    let countries = await getCountries.json();
-    console.log(countries);
-    setCountries(countries);
-  }
   const { handleSubmit, register, reset } = useForm();
 
   function onSubmit(data) {
-    console.log(data);
+    onAddContact(data)
   }
 
   if (isOpen) {
@@ -75,14 +72,21 @@ const ModalAddContact = ({ isOpen, onClose }) => {
                 {...register("email", { required: true })}
               />
             </label>
-            <label htmlFor="company">
-              <input
-                type="text"
-                name="company"
-                id="company"
-                {...register("company", { required: true })}
-              />
-            </label>
+            <select
+              name="company"
+              id="company"
+              className="company"
+              {...register("company", { required: true })}
+            >
+              <option key={1} value={""}>
+                Select a company
+              </option>
+              {companies.map((company) => (
+                <option key={company._id} value={company._id}>
+                  {company.name}
+                </option>
+              ))}
+            </select>
           </div>
           <label htmlFor="location">
             <select
@@ -94,38 +98,60 @@ const ModalAddContact = ({ isOpen, onClose }) => {
                 console.log(e.target.value);
                 fetch(`http://localhost:3050/location/country/${regionId}`)
                   .then((resp) => resp.json())
-                  .then((countries) => setCountries(countries));
+                  .then((countries) => {
+                    setCountries(countries);
+                    console.log(countries);
+                  });
               }}
               onClick={(e) => {
                 console.log(e.target.value);
                 console.log(countries);
               }}
             >
+              <option key={1} value={""}>
+                Select Region
+              </option>
               {regions.map((region) => (
                 <option key={region._id} value={region._id}>
                   {region.name}
                 </option>
               ))}
-              {/* <option value="eut">eur</option>
-              <option value="afr">afr</option> */}
             </select>
             <select
               name="country"
               id="country"
               {...register("country", { required: true })}
+              onChange={(e) => {
+                let countryId = e.target.value;
+                fetch(`http://localhost:3050/location/city/${countryId}`)
+                  .then((resp) => resp.json())
+                  .then((cities) => {
+                    setCities(cities);
+                  });
+              }}
             >
-              {/* {countries.map((country) => (
-                <option value={country._id}>{country.name}</option>
-              ))} */}
+              <option key={1} value={""}>
+                Select a country
+              </option>
+              {countries.map((country) => (
+                <option key={country._id} value={country._id}>
+                  {country.name}
+                </option>
+              ))}
             </select>
             <select
               name="city"
               id="city"
               {...register("city", { required: true })}
             >
-              <option value="med">med</option>
-              <option value="car">car</option>
-              <option value="man">man</option>
+              <option key={1} value={""}>
+                Select a city
+              </option>
+              {cities.map((city) => (
+                <option key={city._id} value={city._id}>
+                  {city.name}
+                </option>
+              ))}
             </select>
           </label>
           <label htmlFor="address">

@@ -26,6 +26,16 @@ router.get("/", async (req, res) => {
     });
 });
 
+router.get("/all", (req, res) => {
+  companySquema.find((err, doc) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(doc);
+    }
+  });
+});
+
 router.post("/:cityId", async (req, res) => {
   const { name, address, email, phone } = req.body;
   const cityId = req.params.cityId;
