@@ -32,7 +32,8 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact }) => {
   const { handleSubmit, register, reset } = useForm();
 
   function onSubmit(data) {
-    onAddContact(data)
+    onAddContact(data);
+    onClose();
   }
 
   if (isOpen) {
@@ -41,6 +42,7 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact }) => {
         <form onSubmit={handleSubmit(onSubmit)} className="modal-contact-form">
           <div className="main">
             <label htmlFor="name">
+              name
               <input
                 type="text"
                 name="name"
@@ -49,6 +51,7 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact }) => {
               />
             </label>
             <label htmlFor="lastName">
+              lastName
               <input
                 type="text"
                 name="lastName"
@@ -56,15 +59,17 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact }) => {
                 {...register("lastName", { required: true })}
               />
             </label>
-            <label htmlFor="position">
+            <label htmlFor="occupation">
+              position
               <input
                 type="text"
-                name="position"
-                id="position"
-                {...register("position", { required: true })}
+                name="occupation"
+                id="occupation"
+                {...register("occupation", { required: true })}
               />
             </label>
             <label htmlFor="email">
+              email
               <input
                 type="email"
                 name="email"
@@ -155,6 +160,7 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact }) => {
             </select>
           </label>
           <label htmlFor="address">
+            address
             <input
               type="text"
               name="address"

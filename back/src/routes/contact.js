@@ -21,7 +21,7 @@ router.get("/", async (req, res) => {
           city: contact.city.name,
           address: contact.address,
           interest: contact.interest,
-          _id: contact._id
+          _id: contact._id,
         };
       });
       res.status(200).json(contactsList);
@@ -64,7 +64,10 @@ router.post("/", async (req, res) => {
       if (err) {
         res.status(400).json({ Error: err });
       } else {
-        res.status(200).json({ Success: "Contact saved successfully" });
+        res.status(200).json({
+          Success: "Contact saved successfully",
+          contact: saveContact,
+        });
       }
     });
   } else {
@@ -87,9 +90,7 @@ router.patch("/:contactId", async (req, res) => {
 
 router.delete("/:contactId", async (req, res) => {
   const id = req.params.contactId;
-  ContactSchema.findByIdAndDelete(id);
-  console
-    .log(id)
+  ContactSchema.findByIdAndDelete(id)
     .then((_) => {
       res.status(200).json({ Success: "Contact deleted successfully" });
     })

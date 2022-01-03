@@ -4,6 +4,8 @@ import Search from "./search/Search";
 import ExportImport from "./export-import-add/ExportImport";
 import ContactsTable from "./contacts-table/ContactsTable";
 import "./_contacts.scss";
+import { BsThreeDots } from "react-icons/bs";
+import { MdEdit, MdDelete } from "react-icons/md";
 
 const Contacts = () => {
   const [modalIsOpen, setmodalIsOpen] = useState(false);
@@ -16,11 +18,26 @@ const Contacts = () => {
       });
   }, []);
 
+  function onDelete(contactId) {
+    fetch(`http://localhost:3050/contact/${contactId}`, {
+      method: "DELETE",
+    }).then((resp) => {
+      if (resp.ok) {
+        console.log(contacts);
+        let updatedContacts = contacts.filter(
+          (contact) => contact._id != contactId
+        );
+        setContacts(updatedContacts);
+      }
+    });
+  }
+
   function onClose() {
     setmodalIsOpen(false);
   }
 
   function onAddContact(data) {
+    console.log(data.city);
     let reqBody = JSON.stringify(data);
     fetch("http://localhost:3050/contact", {
       method: "POST",
@@ -28,11 +45,11 @@ const Contacts = () => {
         "Content-Type": "application/json",
       },
       body: reqBody,
-    }).then((resp) => {
-      if (resp.status == 200) {
-        setContacts([...contacts, data]);
-      }
-    });
+    })
+      .then((resp) => resp.json())
+      .then((resp) => {
+        setContacts([...contacts, resp.contact]);
+      });
     console.log(data);
   }
 
@@ -75,7 +92,21 @@ const Contacts = () => {
                 <li>{contact.company}</li>
                 <li>{contact.occupation}</li>
                 <li>{contact.interest}</li>
-                <li>ACTIONS</li>
+                <li className="actions-container">
+                  <div className="actions-dots">
+                    <BsThreeDots />
+                    <div
+                      onClick={() => {
+                        onDelete(contact._id);
+                      }}
+                    >
+                      <MdDelete />
+                    </div>
+                    <div>
+                      <MdEdit />
+                    </div>
+                  </div>
+                </li>
               </ul>
             </div>
           ))}
