@@ -1,17 +1,19 @@
 import React, { useState, useEffect } from "react";
-import ModalAddContact from "../modals/add/ModalAddContact";
-import Search from "./search/Search";
-import ExportImport from "./export-import-add/ExportImport";
-import ContactsTable from "./contacts-table/ContactsTable";
-import "./_contacts.scss";
 import { BsThreeDots } from "react-icons/bs";
 import { MdEdit, MdDelete } from "react-icons/md";
+import configData from "../../config/config.json";
+import ModalAddContact from "../modals/add/ModalAddContact";
+import ModalUpdateContact from "../modals/update/ModalUpdateContact";
+import Search from "./search/Search";
+import "./_contacts.scss";
 
 const Contacts = () => {
   const [modalIsOpen, setmodalIsOpen] = useState(false);
   const [contacts, setContacts] = useState([]);
+  const [selectedContact, setSelectedContact] = useState({});
+
   useEffect(() => {
-    fetch("http://localhost:3050/contact")
+    fetch(`${configData.API_HOST}:${configData.API_PORT}/contact/`)
       .then((resp) => resp.json())
       .then((contacts) => {
         setContacts(contacts);
@@ -19,9 +21,12 @@ const Contacts = () => {
   }, []);
 
   function onDelete(contactId) {
-    fetch(`http://localhost:3050/contact/${contactId}`, {
-      method: "DELETE",
-    }).then((resp) => {
+    fetch(
+      `${configData.API_HOST}:${configData.API_PORT}/contact/${contactId}`,
+      {
+        method: "DELETE",
+      }
+    ).then((resp) => {
       if (resp.ok) {
         console.log(contacts);
         let updatedContacts = contacts.filter(
@@ -39,7 +44,7 @@ const Contacts = () => {
   function onAddContact(data) {
     console.log(data.city);
     let reqBody = JSON.stringify(data);
-    fetch("http://localhost:3050/contact", {
+    fetch(`${configData.API_HOST}:${configData.API_PORT}/contact/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -62,6 +67,7 @@ const Contacts = () => {
         <button
           onClick={() => {
             setmodalIsOpen(true);
+            setSelectedContact({});
           }}
         >
           ADD
@@ -71,7 +77,9 @@ const Contacts = () => {
         isOpen={modalIsOpen}
         onClose={onClose}
         onAddContact={onAddContact}
+        contact={selectedContact}
       />
+      ;
       <section className="contacts-table">
         <header className="contacts-table-header">
           <ul className="contacts-table-header-menu">
@@ -95,16 +103,18 @@ const Contacts = () => {
                 <li className="actions-container">
                   <div className="actions-dots">
                     <BsThreeDots />
-                    <div
+                    <MdDelete
                       onClick={() => {
                         onDelete(contact._id);
                       }}
-                    >
-                      <MdDelete />
-                    </div>
-                    <div>
-                      <MdEdit />
-                    </div>
+                    />
+                    <MdEdit
+                      onClick={() => {
+                        console.log(contact)
+                        setmodalIsOpen(true);
+                        setSelectedContact(contact);
+                      }}
+                    />
                   </div>
                 </li>
               </ul>
