@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Children } from "react";
 import { useForm } from "react-hook-form";
 import "../modalStyles/_modalContacts.scss";
 
@@ -41,6 +41,7 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact, contact }) => {
   if (isOpen) {
     return (
       <div className="modal-contact">
+        ADD
         <form onSubmit={handleSubmit(onSubmit)} className="modal-contact-form">
           <div className="main">
             <label htmlFor="name">
@@ -49,7 +50,6 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact, contact }) => {
                 type="text"
                 name="name"
                 id="name"
-                defaultValue={contact.name}
                 {...register("name", { required: true })}
               />
             </label>
@@ -59,7 +59,6 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact, contact }) => {
                 type="text"
                 name="lastName"
                 id="lastName"
-                defaultValue={contact["last name"]}
                 {...register("lastName", { required: true })}
               />
             </label>
@@ -69,7 +68,6 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact, contact }) => {
                 type="text"
                 name="occupation"
                 id="occupation"
-                defaultValue={contact.occupation}
                 {...register("occupation", { required: true })}
               />
             </label>
@@ -79,7 +77,6 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact, contact }) => {
                 type="email"
                 name="email"
                 id="email"
-                defaultValue={contact.email}
                 {...register("email", { required: true })}
               />
             </label>
@@ -87,7 +84,6 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact, contact }) => {
               name="company"
               id="company"
               className="company"
-              defaultValue={contact.company}  // Fix it
               {...register("company", { required: true })}
             >
               <option key={1} value={""}>
@@ -172,7 +168,6 @@ const ModalAddContact = ({ isOpen, onClose, onAddContact, contact }) => {
               type="text"
               name="address"
               id="address"
-              defaultValue={contact.address}
               {...register("address", { required: true })}
             />
           </label>
