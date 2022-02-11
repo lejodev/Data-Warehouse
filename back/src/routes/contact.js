@@ -99,4 +99,17 @@ router.delete("/:contactId", async (req, res) => {
     });
 });
 
+router.delete("/", (req, res) => {
+  const selectedContactsList = req.body.selectedContacts;
+  console.log(req.body);
+  ContactSchema.deleteMany({ _id: selectedContactsList })
+    .then(() => {
+      res.status(200).json({ Message: "Success" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json("Error");
+    });
+});
+
 module.exports = router;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BsThreeDots } from "react-icons/bs";
+import { BsPersonPlus, BsThreeDots } from "react-icons/bs";
 import { MdEdit, MdDelete } from "react-icons/md";
 import ModalUpdateContact from "../../modals/update/ModalUpdateContact";
 import configData from "../../../config/config.json";
@@ -9,10 +9,16 @@ const Contact = (props) => {
   const [selectedContact, setSelectedContact] = useState({});
   const [contact, setContact] = useState(props.contact);
   const [display, setDisplay] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
 
-  // useEffect(() => {
-  //   setContact()
-  // }, []);
+  useEffect(() => {
+    function handleParentState() {
+      return !props.mainIsSelected()
+        ? setIsSelected(false)
+        : setIsSelected(true);
+    }
+    handleParentState();
+  }, []);
 
   function onDelete(contactId) {
     fetch(
@@ -26,6 +32,15 @@ const Contact = (props) => {
       }
     });
   }
+
+  function parentIsSelected() {
+    props.mainCheckStatus ? setIsSelected(true) : setIsSelected(false);
+  }
+
+  const handleSelection = () => {
+    setIsSelected(!isSelected);
+    console.log(isSelected)
+  };
 
   function onCloseUpdate() {
     setUpdateModalIsOpen(false);
@@ -45,6 +60,15 @@ const Contact = (props) => {
         contact={selectedContact}
       />
       <ul className="contact-row">
+        <li>
+          <input
+            type="checkbox"
+            name="child-checkbox"
+            id="child-checkbox"
+            checked={isSelected}
+            onChange={handleSelection}
+          />
+        </li>
         <li>{contact.name}</li>
         <li>{contact.city}</li>
         <li>{contact.company}</li>

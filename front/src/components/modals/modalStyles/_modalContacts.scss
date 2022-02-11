@@ -6,6 +6,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: khaki;
+  z-index: 10;
   .modal-contact-form {
     .main {
         display: flex;

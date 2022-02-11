@@ -10,18 +10,34 @@
     height: 20vh;
   }
   .search {
-    background-color: aquamarine;
     grid-area: search;
   }
   .export-import {
-    background-color: burlywood;
     grid-area: import-export;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .contacts-table {
-    background-color: darkcyan;
+    position: relative;
     grid-area: contacts;
     min-height: 60vh;
     .contacts-table-header {
+      border: 1px solid #cccccc;
+      position: relative;
+      .selectedInfo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        background-color: #cccccc;
+        position: absolute;
+        bottom: 115%;
+        z-index: 0;
+        .delete-selected {
+          cursor: pointer;
+        }
+      }
       .contacts-table-header-menu {
         display: flex;
         flex-flow: row;
@@ -31,6 +47,9 @@
       }
     }
     .contacts-table-body {
+      border-left: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
       .contact {
         .contact-row {
           display: flex;
