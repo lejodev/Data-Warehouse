@@ -56,6 +56,16 @@
           list-style: none;
           justify-content: space-between;
           padding-left: 0;
+          .actions-container {
+            cursor: pointer;
+            .actions-dots {
+              display: none;
+            }
+          }
+        }
+        .contact-row &:hover {
+          background-color: aquamarine;
+          display: block;
         }
       }
     }

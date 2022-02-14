@@ -54,9 +54,18 @@ const Contacts = () => {
     setUpdateModalIsOpen(false);
   }
 
-  function mainCheckStatus() {
-    console.log(parentIsSelected);
-    return parentIsSelected;
+  function handleSort(click, field) {
+    let order = 1;
+    fetch(
+      `${configData.API_HOST}:${configData.API_PORT}/contact/sort?order=${click}&fieldParam=${field}`
+    )
+      .then((resp) => {
+        console.log(resp);
+        return resp.json();
+      })
+      .then((resp) => {
+        setContacts(resp)
+      });
   }
 
   const handleSelection = (id) => {
@@ -172,11 +181,42 @@ const Contacts = () => {
                 }}
               />
             </li>
-            <li>Contacts</li>
-            <li>Country/Region</li>
-            <li>Company</li>
-            <li>Position</li>
-            <li>Interest</li>
+            <li
+              onClick={() => {
+                handleSort(-1, "name");
+              }}
+            >
+              Contact
+            </li>
+            <li
+              onClick={() => {
+                handleSort(-1, "city");
+              }}
+            >
+              Country/Region
+            </li>
+            <li
+              onClick={() => {
+                handleSort(-1, "company");
+              }}
+            >
+              Company
+            </li>
+            <li
+              onClick={() => {
+                handleSort(-1, "occupation");
+              }}
+            >
+              Position
+            </li>
+            <li
+              onClick={() => {
+                handleSort(1, "interest");
+                
+              }}
+            >
+              Interest
+            </li>
             <li>Actions</li>
           </ul>
         </header>
@@ -215,8 +255,8 @@ const Contacts = () => {
                     <li>{contact.occupation}</li>
                     <li>{contact.interest}</li>
                     <li className="actions-container">
+                      <BsThreeDots />
                       <div className="actions-dots">
-                        <BsThreeDots />
                         <MdDelete
                           onClick={() => {
                             onDelete(contact._id);

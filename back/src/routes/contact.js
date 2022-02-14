@@ -32,6 +32,22 @@ router.get("/", async (req, res) => {
     });
 });
 
+router.get("/sort", (req, res) => {
+  let orderBy = req.query.order;
+  let field = req.query.fieldParam;
+  orderBy = parseInt(orderBy);
+  ContactSchema.find({})
+    .sort([[`${field}`, orderBy]])
+    .exec((err, doc) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.status(200).json(doc);
+        console.log(doc);
+      }
+    });
+});
+
 router.post("/", async (req, res) => {
   const {
     name,
