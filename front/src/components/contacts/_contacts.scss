@@ -11,6 +11,9 @@
   }
   .search {
     grid-area: search;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .export-import {
     grid-area: import-export;

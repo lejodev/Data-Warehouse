@@ -20,6 +20,13 @@ const Contacts = () => {
   const [selectedContacts, setSelectedContacts, selectedContactsRef] = useState(
     []
   );
+  const [click, setClick, clickRef] = useState({
+    name: 1,
+    city: 1,
+    company: 1,
+    occupation: 1,
+    interest: 1,
+  });
 
   useEffect(() => {
     fetch(`${configData.API_HOST}:${configData.API_PORT}/contact/`)
@@ -54,17 +61,22 @@ const Contacts = () => {
     setUpdateModalIsOpen(false);
   }
 
-  function handleSort(click, field) {
-    let order = 1;
+  function handleSort(field) {
+    let getClicks = { ...click };
+    let sort = getClicks[field];
+    sort *= -1;
+    getClicks[field] = sort;
+    setClick(getClicks);
+    console.log(clickRef.current);
     fetch(
-      `${configData.API_HOST}:${configData.API_PORT}/contact/sort?order=${click}&fieldParam=${field}`
+      `${configData.API_HOST}:${configData.API_PORT}/contact/sort?order=${sort}&fieldParam=${field}`
     )
       .then((resp) => {
         console.log(resp);
         return resp.json();
       })
       .then((resp) => {
-        setContacts(resp)
+        setContacts(resp);
       });
   }
 
@@ -73,7 +85,6 @@ const Contacts = () => {
       setSelectedContacts([...selectedContacts, id]);
       if (selectedContactsRef.current.length === contacts.length) {
         setParentIsSelected(true);
-        console.log(selectedContactsRef.current.length, contacts.length);
       }
     } else {
       setParentIsSelected(false);
@@ -106,7 +117,15 @@ const Contacts = () => {
 
   return (
     <div className="contacts-general-container">
-      <Search />
+      <div className="search">
+        <form>
+          <label htmlFor="input">
+            <input type="text" />
+          </label>
+          <button type="submit">SEARCH</button>
+        </form>
+      </div>
+      ;
       <div className="export-import">
         <button>IMPORT</button>
         <button>EXPORT</button>
@@ -126,7 +145,7 @@ const Contacts = () => {
       />
       <section className="contacts-table">
         <header className="contacts-table-header">
-          {selectedContactsRef.current.length > 0 ? (
+          {selectedContactsRef.current.length > 1 ? (
             <div className="selectedInfo">
               <span>{selectedContacts.length} selected</span>
               <div
@@ -183,36 +202,35 @@ const Contacts = () => {
             </li>
             <li
               onClick={() => {
-                handleSort(-1, "name");
+                handleSort("name");
               }}
             >
               Contact
             </li>
             <li
               onClick={() => {
-                handleSort(-1, "city");
+                handleSort("city");
               }}
             >
               Country/Region
             </li>
             <li
               onClick={() => {
-                handleSort(-1, "company");
+                handleSort("company");
               }}
             >
               Company
             </li>
             <li
               onClick={() => {
-                handleSort(-1, "occupation");
+                handleSort("occupation");
               }}
             >
               Position
             </li>
             <li
               onClick={() => {
-                handleSort(1, "interest");
-                
+                handleSort("interest");
               }}
             >
               Interest
