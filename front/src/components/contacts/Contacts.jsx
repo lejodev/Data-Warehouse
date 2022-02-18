@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import useState from "react-usestateref";
 import { BsThreeDots } from "react-icons/bs";
+import { BiSortAlt2 } from "react-icons/bi";
 import { MdEdit, MdDelete } from "react-icons/md";
 import configData from "../../config/config.json";
 import ModalAddContact from "../modals/add/ModalAddContact";
@@ -152,7 +153,6 @@ const Contacts = () => {
                 className="delete-selected"
                 onClick={() => {
                   let body = { selectedContacts: selectedContacts };
-                  console.log(body, "HIJUEPUTAOMEEEEEEEEE");
                   fetch("http://localhost:3050/contact/", {
                     headers: {
                       "Content-Type": "application/json",
@@ -200,42 +200,47 @@ const Contacts = () => {
                 }}
               />
             </li>
-            <li
-              onClick={() => {
-                handleSort("name");
-              }}
-            >
-              Contact
+            <li className="contacts-table-title">
+              <span>Contact</span>
+              <BiSortAlt2
+                onClick={() => {
+                  handleSort("name");
+                }}
+              />
             </li>
-            <li
-              onClick={() => {
-                handleSort("city");
-              }}
-            >
-              Country/Region
+            <li className="contacts-table-title">
+              <span>Country/Region</span>
+              <BiSortAlt2
+                onClick={() => {
+                  handleSort("city");
+                }}
+              />
             </li>
-            <li
-              onClick={() => {
-                handleSort("company");
-              }}
-            >
-              Company
+            <li className="contacts-table-title">
+              <span>Company</span>
+              <BiSortAlt2
+                onClick={() => {
+                  handleSort("company");
+                }}
+              />
             </li>
-            <li
-              onClick={() => {
-                handleSort("occupation");
-              }}
-            >
-              Position
+            <li className="contacts-table-title">
+              <span>Position</span>
+              <BiSortAlt2
+                onClick={() => {
+                  handleSort("occupation");
+                }}
+              />
             </li>
-            <li
-              onClick={() => {
-                handleSort("interest");
-              }}
-            >
-              Interest
+            <li className="contacts-table-title">
+              <span>Interest</span>
+              <BiSortAlt2
+                onClick={() => {
+                  handleSort("interest");
+                }}
+              />
             </li>
-            <li>Actions</li>
+            <li className="contacts-table-actions">Actions</li>
           </ul>
         </header>
         <div className="contacts-table-body">
@@ -255,7 +260,7 @@ const Contacts = () => {
                     onUpdateContact={onUpdateContact}
                     contact={selectEditContact}
                   />
-                  <ul className="contact-row">
+                  <ul className="contacts-list">
                     <li>
                       <input
                         type="checkbox"
@@ -267,12 +272,15 @@ const Contacts = () => {
                         }}
                       />
                     </li>
-                    <li>{contact.name}</li>
-                    <li>{contact.city}</li>
-                    <li>{contact.company}</li>
-                    <li>{contact.occupation}</li>
-                    <li>{contact.interest}</li>
-                    <li className="actions-container">
+                    <li className="contact-row">{contact.name}</li>
+                    <li className="contact-row">{contact.city}</li>
+                    <li className="contact-row">{contact.company}</li>
+                    <li className="contact-row">{contact.occupation}</li>
+                    <li className="contact-row">{contact.interest}</li>
+                    <li
+                      className="contact-row-edit"
+                      className="actions-container"
+                    >
                       <BsThreeDots />
                       <div className="actions-dots">
                         <MdDelete
